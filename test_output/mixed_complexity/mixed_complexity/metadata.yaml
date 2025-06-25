@@ -1,0 +1,740 @@
+complexity_levels: &id001
+  complex:
+    content_types:
+    - words
+    - phrases
+    length_range: !!python/tuple
+    - 11
+    - 20
+    weight: 0.2
+  medium:
+    content_types:
+    - syllables
+    - words
+    length_range: !!python/tuple
+    - 4
+    - 10
+    weight: 0.4
+  simple:
+    content_types:
+    - digits
+    - characters
+    length_range: !!python/tuple
+    - 1
+    - 3
+    weight: 0.4
+dataset_info:
+  complexity_distribution: *id001
+  fonts_used:
+  - KhmerOS
+  - KhmerOSbattambang
+  - KhmerOSbokor
+  - KhmerOSfasthand
+  - KhmerOSmetalchrieng
+  - KhmerOSmuol
+  - KhmerOSmuollight
+  - KhmerOSsiemreap
+  generated_by: SyntheticDataGenerator v2.0 - Mixed Complexity
+  generation_type: mixed_complexity
+  image_size:
+  - 128
+  - 64
+  total_samples: 18
+  train_samples: 14
+  val_samples: 4
+train:
+  samples:
+  - augmentation:
+      applied_augmentations:
+      - rotation_angle
+      - brightness_factor
+      - contrast_factor
+      - motion_blur_size
+      - motion_blur_angle
+      - blur_type
+      - speckle_intensity
+      - perspective_intensity
+      num_augmentations: 8
+      parameters:
+        blur_type: motion
+        brightness_factor: -0.1743291529627626
+        contrast_factor: -0.03265167791751228
+        motion_blur_angle: 192.35448585158605
+        motion_blur_size: 3
+        perspective_intensity: 0.11246608147312828
+        rotation_angle: -8.532606683824477
+        speckle_intensity: 0.012320949919156915
+    character_count: 2
+    complexity_level: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U6
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 24
+      - 4
+      - 8
+    - !!binary |
+      bQAAAGUAAABkAAAAaQAAAHUAAABtAAAA
+    content_type: words
+    font: KhmerOSbokor
+    font_size: 36
+    image_filename: train_000000.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\mixed_complexity\mixed_complexity\train\train_000000.png
+    image_size: &id002 !!python/tuple
+    - 128
+    - 64
+    label: នា
+    text_color: &id003 !!python/tuple
+    - 64
+    - 64
+    - 64
+    text_position: !!python/tuple
+    - 48
+    - -8
+  - augmentation:
+      applied_augmentations:
+      - contrast_factor
+      - motion_blur_size
+      - motion_blur_angle
+      - blur_type
+      num_augmentations: 4
+      parameters:
+        blur_type: motion
+        contrast_factor: 0.06145751449229858
+        motion_blur_angle: 102.69389052829605
+        motion_blur_size: 6
+    character_count: 4
+    complexity_level: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U6
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 24
+      - 4
+      - 8
+    - !!binary |
+      cwAAAGkAAABtAAAAcAAAAGwAAABlAAAA
+    content_type: digits
+    font: KhmerOSfasthand
+    font_size: 28
+    image_filename: train_000001.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\mixed_complexity\mixed_complexity\train\train_000001.png
+    image_size: *id002
+    label: ២៣២៣
+    text_color: *id003
+    text_position: !!python/tuple
+    - 15
+    - 2
+  - augmentation:
+      applied_augmentations:
+      - rotation_angle
+      - brightness_factor
+      - contrast_factor
+      - noise_std
+      num_augmentations: 4
+      parameters:
+        brightness_factor: -0.0022162321627571813
+        contrast_factor: 0.14055589368094262
+        noise_std: 0.009190043974691774
+        rotation_angle: 12.771866001375201
+    character_count: 4
+    complexity_level: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U6
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 24
+      - 4
+      - 8
+    - !!binary |
+      cwAAAGkAAABtAAAAcAAAAGwAAABlAAAA
+    content_type: digits
+    font: KhmerOSmetalchrieng
+    font_size: 30
+    image_filename: train_000002.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\mixed_complexity\mixed_complexity\train\train_000002.png
+    image_size: *id002
+    label: ៧៨៣៩
+    text_color: *id003
+    text_position: !!python/tuple
+    - 12
+    - -1
+  - augmentation:
+      applied_augmentations:
+      - rotation_angle
+      - brightness_factor
+      num_augmentations: 2
+      parameters:
+        brightness_factor: -0.07680459154017552
+        rotation_angle: 7.703356798088144
+    character_count: 12
+    complexity_level: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U6
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 24
+      - 4
+      - 8
+    - !!binary |
+      cwAAAGkAAABtAAAAcAAAAGwAAABlAAAA
+    content_type: characters
+    font: KhmerOSsiemreap
+    font_size: 15
+    image_filename: train_000003.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\mixed_complexity\mixed_complexity\train\train_000003.png
+    image_size: *id002
+    label: ំលមទ្និកមមីត
+    text_color: &id004 !!python/tuple
+    - 32
+    - 32
+    - 32
+    text_position: !!python/tuple
+    - 20
+    - 19
+  - augmentation:
+      applied_augmentations:
+      - rotation_angle
+      - brightness_factor
+      - perspective_intensity
+      num_augmentations: 3
+      parameters:
+        brightness_factor: 0.16473799529315364
+        perspective_intensity: 0.058701899114693305
+        rotation_angle: 2.164825140085835
+    character_count: 5
+    complexity_level: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U6
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 24
+      - 4
+      - 8
+    - !!binary |
+      bQAAAGUAAABkAAAAaQAAAHUAAABtAAAA
+    content_type: syllables
+    font: KhmerOSsiemreap
+    font_size: 30
+    image_filename: train_000004.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\mixed_complexity\mixed_complexity\train\train_000004.png
+    image_size: *id002
+    label: ឌេ៝ប្
+    text_color: *id003
+    text_position: !!python/tuple
+    - 38
+    - 4
+  - augmentation:
+      applied_augmentations:
+      - rotation_angle
+      - contrast_factor
+      - noise_std
+      num_augmentations: 3
+      parameters:
+        contrast_factor: 0.10719782844379772
+        noise_std: 0.007544246087586876
+        rotation_angle: -13.911303232141734
+    character_count: 2
+    complexity_level: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U6
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 24
+      - 4
+      - 8
+    - !!binary |
+      cwAAAGkAAABtAAAAcAAAAGwAAABlAAAA
+    content_type: characters
+    font: KhmerOSbokor
+    font_size: 36
+    image_filename: train_000005.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\mixed_complexity\mixed_complexity\train\train_000005.png
+    image_size: *id002
+    label: ាវ
+    text_color: &id005 !!python/tuple
+    - 96
+    - 96
+    - 96
+    text_position: !!python/tuple
+    - 42
+    - -2
+  - augmentation:
+      applied_augmentations:
+      - contrast_factor
+      - perspective_intensity
+      num_augmentations: 2
+      parameters:
+        contrast_factor: 0.12636425889586383
+        perspective_intensity: 0.07178963714433712
+    character_count: 7
+    complexity_level: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U6
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 24
+      - 4
+      - 8
+    - !!binary |
+      cwAAAGkAAABtAAAAcAAAAGwAAABlAAAA
+    content_type: digits
+    font: KhmerOSmetalchrieng
+    font_size: 18
+    image_filename: train_000006.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\mixed_complexity\mixed_complexity\train\train_000006.png
+    image_size: *id002
+    label: ៥១២១៥៧២
+    text_color: *id004
+    text_position: !!python/tuple
+    - 12
+    - 12
+  - augmentation:
+      applied_augmentations:
+      - brightness_factor
+      - contrast_factor
+      num_augmentations: 2
+      parameters:
+        brightness_factor: 0.12828795013740069
+        contrast_factor: -0.09981173538944144
+    character_count: 11
+    complexity_level: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U6
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 24
+      - 4
+      - 8
+    - !!binary |
+      cwAAAGkAAABtAAAAcAAAAGwAAABlAAAA
+    content_type: characters
+    font: KhmerOSmetalchrieng
+    font_size: 17
+    image_filename: train_000007.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\mixed_complexity\mixed_complexity\train\train_000007.png
+    image_size: *id002
+    label: កបមលិរិជីចា
+    text_color: &id006 !!python/tuple
+    - 0
+    - 0
+    - 0
+    text_position: !!python/tuple
+    - 14
+    - 17
+  - augmentation:
+      applied_augmentations:
+      - rotation_angle
+      num_augmentations: 1
+      parameters:
+        rotation_angle: -13.544618891917532
+    character_count: 1
+    complexity_level: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U6
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 24
+      - 4
+      - 8
+    - !!binary |
+      bQAAAGUAAABkAAAAaQAAAHUAAABtAAAA
+    content_type: words
+    font: KhmerOS
+    font_size: 38
+    image_filename: train_000008.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\mixed_complexity\mixed_complexity\train\train_000008.png
+    image_size: *id002
+    label: ដ
+    text_color: *id003
+    text_position: !!python/tuple
+    - 49
+    - -3
+  - augmentation:
+      applied_augmentations:
+      - brightness_factor
+      - contrast_factor
+      - noise_std
+      - perspective_intensity
+      num_augmentations: 4
+      parameters:
+        brightness_factor: -0.055662890782340185
+        contrast_factor: 0.10590484420151836
+        noise_std: 0.005062820203719757
+        perspective_intensity: 0.05013119846879647
+    character_count: 1
+    complexity_level: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U7
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 28
+      - 4
+      - 8
+    - !!binary |
+      YwAAAG8AAABtAAAAcAAAAGwAAABlAAAAeAAAAA==
+    content_type: phrases
+    font: KhmerOSmuol
+    font_size: 38
+    image_filename: train_000009.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\mixed_complexity\mixed_complexity\train\train_000009.png
+    image_size: *id002
+    label: ឌ
+    text_color: *id005
+    text_position: !!python/tuple
+    - 47
+    - -8
+  - augmentation:
+      applied_augmentations:
+      - brightness_factor
+      - noise_std
+      - blur_radius
+      - blur_type
+      - speckle_intensity
+      num_augmentations: 5
+      parameters:
+        blur_radius: 0.9486210961670394
+        blur_type: gaussian
+        brightness_factor: -0.0915801050430062
+        noise_std: 0.007601205349514648
+        speckle_intensity: 0.037750363439405056
+    character_count: 6
+    complexity_level: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U6
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 24
+      - 4
+      - 8
+    - !!binary |
+      bQAAAGUAAABkAAAAaQAAAHUAAABtAAAA
+    content_type: syllables
+    font: KhmerOSmetalchrieng
+    font_size: 28
+    image_filename: train_000010.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\mixed_complexity\mixed_complexity\train\train_000010.png
+    image_size: *id002
+    label: ប់មៅកិ
+    text_color: *id003
+    text_position: !!python/tuple
+    - 20
+    - 6
+  - augmentation:
+      applied_augmentations:
+      - contrast_factor
+      num_augmentations: 1
+      parameters:
+        contrast_factor: -0.11987112729646993
+    character_count: 2
+    complexity_level: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U6
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 24
+      - 4
+      - 8
+    - !!binary |
+      cwAAAGkAAABtAAAAcAAAAGwAAABlAAAA
+    content_type: digits
+    font: KhmerOSfasthand
+    font_size: 36
+    image_filename: train_000011.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\mixed_complexity\mixed_complexity\train\train_000011.png
+    image_size: *id002
+    label: ៦២
+    text_color: *id003
+    text_position: !!python/tuple
+    - 31
+    - -3
+  - augmentation:
+      applied_augmentations:
+      - brightness_factor
+      - contrast_factor
+      - blur_radius
+      - blur_type
+      num_augmentations: 4
+      parameters:
+        blur_radius: 0.39424006585796023
+        blur_type: gaussian
+        brightness_factor: 0.14461788443477114
+        contrast_factor: 0.1483478687296262
+    character_count: 3
+    complexity_level: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U7
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 28
+      - 4
+      - 8
+    - !!binary |
+      YwAAAG8AAABtAAAAcAAAAGwAAABlAAAAeAAAAA==
+    content_type: words
+    font: KhmerOS
+    font_size: 34
+    image_filename: train_000012.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\mixed_complexity\mixed_complexity\train\train_000012.png
+    image_size: *id002
+    label: ពះ់
+    text_color: *id004
+    text_position: !!python/tuple
+    - 31
+    - 5
+  - augmentation:
+      applied_augmentations:
+      - rotation_angle
+      - noise_std
+      - blur_radius
+      - blur_type
+      - perspective_intensity
+      num_augmentations: 5
+      parameters:
+        blur_radius: 0.2489125244269493
+        blur_type: gaussian
+        noise_std: 0.0074732776179366
+        perspective_intensity: 0.11371045755959798
+        rotation_angle: -1.691990467751527
+    character_count: 5
+    complexity_level: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U6
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 24
+      - 4
+      - 8
+    - !!binary |
+      cwAAAGkAAABtAAAAcAAAAGwAAABlAAAA
+    content_type: digits
+    font: KhmerOSmetalchrieng
+    font_size: 26
+    image_filename: train_000013.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\mixed_complexity\mixed_complexity\train\train_000013.png
+    image_size: *id002
+    label: ៩៨២៨១
+    text_color: *id006
+    text_position: !!python/tuple
+    - 12
+    - 3
+val:
+  samples:
+  - augmentation: {}
+    character_count: 2
+    complexity_level: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U6
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 24
+      - 4
+      - 8
+    - !!binary |
+      bQAAAGUAAABkAAAAaQAAAHUAAABtAAAA
+    content_type: words
+    font: KhmerOSfasthand
+    font_size: 36
+    image_filename: val_000000.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\mixed_complexity\mixed_complexity\val\val_000000.png
+    image_size: *id002
+    label: ឃឺ
+    text_color: *id005
+    text_position: !!python/tuple
+    - 40
+    - 1
+  - augmentation: {}
+    character_count: 1
+    complexity_level: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U6
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 24
+      - 4
+      - 8
+    - !!binary |
+      bQAAAGUAAABkAAAAaQAAAHUAAABtAAAA
+    content_type: syllables
+    font: KhmerOSsiemreap
+    font_size: 38
+    image_filename: val_000001.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\mixed_complexity\mixed_complexity\val\val_000001.png
+    image_size: *id002
+    label: ប
+    text_color: *id006
+    text_position: !!python/tuple
+    - 51
+    - -1
+  - augmentation: {}
+    character_count: 4
+    complexity_level: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U6
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 24
+      - 4
+      - 8
+    - !!binary |
+      cwAAAGkAAABtAAAAcAAAAGwAAABlAAAA
+    content_type: digits
+    font: KhmerOS
+    font_size: 32
+    image_filename: val_000002.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\mixed_complexity\mixed_complexity\val\val_000002.png
+    image_size: *id002
+    label: ៨៩១០
+    text_color: *id005
+    text_position: !!python/tuple
+    - 15
+    - 4
+  - augmentation: {}
+    character_count: 5
+    complexity_level: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U6
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 24
+      - 4
+      - 8
+    - !!binary |
+      cwAAAGkAAABtAAAAcAAAAGwAAABlAAAA
+    content_type: characters
+    font: KhmerOSbattambang
+    font_size: 22
+    image_filename: val_000003.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\mixed_complexity\mixed_complexity\val\val_000003.png
+    image_size: *id002
+    label: ចនបសស
+    text_color: *id004
+    text_position: !!python/tuple
+    - 19
+    - 13

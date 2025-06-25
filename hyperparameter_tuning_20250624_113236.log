@@ -1,0 +1,380 @@
+2025-06-24 11:32:36,140 - __main__ - INFO - Starting hyperparameter tuning with 7 experiments
+2025-06-24 11:32:36,140 - __main__ - INFO - Starting experiment: baseline_optimized
+2025-06-24 11:32:36,144 - modules.trainers.utils - INFO - Training environment setup complete
+2025-06-24 11:32:36,144 - modules.trainers.utils - INFO - Experiment directory: training_output/baseline_optimized
+2025-06-24 11:32:36,144 - modules.trainers.utils - INFO - Device: cpu
+2025-06-24 11:32:36,144 - modules.trainers.utils - INFO - Mixed precision: False
+2025-06-24 11:32:36,144 - __main__ - INFO - Loading datasets...
+2025-06-24 11:32:46,460 - __main__ - INFO - Training samples: 4000
+2025-06-24 11:32:46,460 - __main__ - INFO - Validation samples: 1000
+2025-06-24 11:32:46,460 - __main__ - INFO - Creating model...
+2025-06-24 11:32:46,673 - modules.trainers.base_trainer - INFO - Model parameters: {'total_parameters': 16167733, 'trainable_parameters': 16167733, 'non_trainable_parameters': 0}
+2025-06-24 11:32:46,673 - modules.trainers.ocr_trainer - INFO - OCR Trainer initialized
+2025-06-24 11:32:46,673 - modules.trainers.ocr_trainer - INFO - Vocabulary size: 13
+2025-06-24 11:32:46,673 - modules.trainers.ocr_trainer - INFO - Characters: ['U+17E0', 'U+17E1', 'U+17E2', 'U+17E3', 'U+17E4', 'U+17E5', 'U+17E6', 'U+17E7', 'U+17E8', 'U+17E9', '<EOS>', '<PAD>', '<BLANK>']
+2025-06-24 11:32:46,674 - __main__ - INFO - Starting training...
+2025-06-24 11:32:46,674 - modules.trainers.base_trainer - INFO - Starting training for 2 epochs
+2025-06-24 11:32:46,674 - modules.trainers.base_trainer - INFO - Training samples: 4000
+2025-06-24 11:32:46,674 - modules.trainers.base_trainer - INFO - Validation samples: 1000
+2025-06-24 11:33:07,085 - modules.trainers.base_trainer - INFO - Epoch 1 Batch 0 - Images: torch.Size([64, 3, 128, 64]), Labels: torch.Size([64, 9]), Predictions: torch.Size([64, 9, 13])
+2025-06-24 11:33:07,773 - modules.trainers.base_trainer - INFO - Epoch   1 | Batch    0/63 | Loss: 2.9145 | LR: 0.002000
+2025-06-24 11:33:08,064 - modules.trainers.base_trainer - INFO - Epoch 1 Batch 1 - Images: torch.Size([64, 3, 128, 64]), Labels: torch.Size([64, 9]), Predictions: torch.Size([64, 9, 13])
+2025-06-24 11:33:09,029 - modules.trainers.base_trainer - INFO - Epoch 1 Batch 2 - Images: torch.Size([64, 3, 128, 64]), Labels: torch.Size([64, 9]), Predictions: torch.Size([64, 9, 13])
+2025-06-24 11:33:31,573 - modules.trainers.base_trainer - INFO - Epoch   1 | Batch   25/63 | Loss: 2.4071 | LR: 0.002000
+2025-06-24 11:33:58,520 - modules.trainers.base_trainer - INFO - Epoch   1 | Batch   50/63 | Loss: 2.3833 | LR: 0.002000
+2025-06-24 11:35:00,845 - modules.trainers.base_trainer - INFO - Validation Batch 0 - Images: torch.Size([64, 3, 128, 64]), Labels: torch.Size([64, 9])
+2025-06-24 11:35:01,183 - modules.trainers.base_trainer - INFO - Validation Batch 0 - Predictions: torch.Size([64, 9, 13])
+2025-06-24 11:35:01,190 - modules.trainers.base_trainer - INFO - Validation Batch 1 - Images: torch.Size([64, 3, 128, 64]), Labels: torch.Size([64, 9])
+2025-06-24 11:35:01,441 - modules.trainers.base_trainer - INFO - Validation Batch 1 - Predictions: torch.Size([64, 9, 13])
+2025-06-24 11:35:01,447 - modules.trainers.base_trainer - INFO - Validation Batch 2 - Images: torch.Size([64, 3, 128, 64]), Labels: torch.Size([64, 9])
+2025-06-24 11:35:01,696 - modules.trainers.base_trainer - INFO - Validation Batch 2 - Predictions: torch.Size([64, 9, 13])
+2025-06-24 11:35:26,096 - modules.trainers.base_trainer - INFO - Epoch   1 Results:
+2025-06-24 11:35:26,096 - modules.trainers.base_trainer - INFO -   Train Loss: 2.6085
+2025-06-24 11:35:26,096 - modules.trainers.base_trainer - INFO -   Val Loss:   2.4325
+2025-06-24 11:35:26,097 - modules.trainers.base_trainer - INFO -   Train Char Acc: 18.2%
+2025-06-24 11:35:26,097 - modules.trainers.base_trainer - INFO -   Val Char Acc:   17.4%
+2025-06-24 11:35:26,097 - modules.trainers.base_trainer - INFO -   Train Seq Acc:  0.2%
+2025-06-24 11:35:26,097 - modules.trainers.base_trainer - INFO -   Val Seq Acc:    0.0%
+2025-06-24 11:35:27,119 - modules.trainers.utils - INFO - New best model saved at epoch 1
+2025-06-24 11:35:27,295 - modules.trainers.utils - INFO - Checkpoint saved: training_output/baseline_optimized/checkpoints/checkpoint_epoch_001.pth
+2025-06-24 11:35:51,425 - modules.trainers.base_trainer - INFO - Epoch   2 | Batch    0/63 | Loss: 2.3884 | LR: 0.001000
+2025-06-24 11:36:15,134 - modules.trainers.base_trainer - INFO - Epoch   2 | Batch   25/63 | Loss: 2.2109 | LR: 0.001000
+2025-06-24 11:36:38,848 - modules.trainers.base_trainer - INFO - Epoch   2 | Batch   50/63 | Loss: 2.2290 | LR: 0.001000
+2025-06-24 11:37:28,000 - modules.trainers.base_trainer - INFO - Validation Batch 0 - Images: torch.Size([64, 3, 128, 64]), Labels: torch.Size([64, 9])
+2025-06-24 11:37:28,296 - modules.trainers.base_trainer - INFO - Validation Batch 0 - Predictions: torch.Size([64, 9, 13])
+2025-06-24 11:37:28,303 - modules.trainers.base_trainer - INFO - Validation Batch 1 - Images: torch.Size([64, 3, 128, 64]), Labels: torch.Size([64, 9])
+2025-06-24 11:37:28,546 - modules.trainers.base_trainer - INFO - Validation Batch 1 - Predictions: torch.Size([64, 9, 13])
+2025-06-24 11:37:28,554 - modules.trainers.base_trainer - INFO - Validation Batch 2 - Images: torch.Size([64, 3, 128, 64]), Labels: torch.Size([64, 9])
+2025-06-24 11:37:28,792 - modules.trainers.base_trainer - INFO - Validation Batch 2 - Predictions: torch.Size([64, 9, 13])
+2025-06-24 11:37:51,858 - modules.trainers.base_trainer - INFO - Epoch   2 Results:
+2025-06-24 11:37:51,858 - modules.trainers.base_trainer - INFO -   Train Loss: 2.2548
+2025-06-24 11:37:51,858 - modules.trainers.base_trainer - INFO -   Val Loss:   2.2262
+2025-06-24 11:37:51,858 - modules.trainers.base_trainer - INFO -   Train Char Acc: 23.6%
+2025-06-24 11:37:51,858 - modules.trainers.base_trainer - INFO -   Val Char Acc:   24.5%
+2025-06-24 11:37:51,858 - modules.trainers.base_trainer - INFO -   Train Seq Acc:  0.4%
+2025-06-24 11:37:51,858 - modules.trainers.base_trainer - INFO -   Val Seq Acc:    0.0%
+2025-06-24 11:37:52,697 - modules.trainers.utils - INFO - New best model saved at epoch 2
+2025-06-24 11:37:52,835 - modules.trainers.utils - INFO - Checkpoint saved: training_output/baseline_optimized/checkpoints/checkpoint_epoch_002.pth
+2025-06-24 11:37:52,836 - modules.trainers.base_trainer - INFO - Training completed in 306.16 seconds
+2025-06-24 11:37:52,973 - modules.trainers.utils - INFO - Checkpoint loaded: training_output/baseline_optimized/checkpoints/best_model.pth
+2025-06-24 11:37:52,999 - modules.trainers.base_trainer - INFO - Loaded best model from epoch 2
+2025-06-24 11:37:53,018 - __main__ - INFO - Experiment baseline_optimized completed successfully!
+2025-06-24 11:37:53,018 - __main__ - INFO - Best character accuracy: 0.0000
+2025-06-24 11:37:53,089 - __main__ - INFO - Starting experiment: aggressive_learning
+2025-06-24 11:37:53,103 - modules.trainers.utils - INFO - Training environment setup complete
+2025-06-24 11:37:53,103 - modules.trainers.utils - INFO - Experiment directory: training_output/aggressive_learning
+2025-06-24 11:37:53,103 - modules.trainers.utils - INFO - Device: cpu
+2025-06-24 11:37:53,103 - modules.trainers.utils - INFO - Mixed precision: False
+2025-06-24 11:37:53,103 - __main__ - INFO - Loading datasets...
+2025-06-24 11:38:04,108 - __main__ - INFO - Training samples: 4000
+2025-06-24 11:38:04,109 - __main__ - INFO - Validation samples: 1000
+2025-06-24 11:38:04,109 - __main__ - INFO - Creating model...
+2025-06-24 11:38:04,336 - modules.trainers.base_trainer - INFO - Model parameters: {'total_parameters': 16167733, 'trainable_parameters': 16167733, 'non_trainable_parameters': 0}
+2025-06-24 11:38:04,336 - modules.trainers.ocr_trainer - INFO - OCR Trainer initialized
+2025-06-24 11:38:04,336 - modules.trainers.ocr_trainer - INFO - Vocabulary size: 13
+2025-06-24 11:38:04,336 - modules.trainers.ocr_trainer - INFO - Characters: ['U+17E0', 'U+17E1', 'U+17E2', 'U+17E3', 'U+17E4', 'U+17E5', 'U+17E6', 'U+17E7', 'U+17E8', 'U+17E9', '<EOS>', '<PAD>', '<BLANK>']
+2025-06-24 11:38:04,336 - __main__ - INFO - Starting training...
+2025-06-24 11:38:04,336 - modules.trainers.base_trainer - INFO - Starting training for 2 epochs
+2025-06-24 11:38:04,336 - modules.trainers.base_trainer - INFO - Training samples: 4000
+2025-06-24 11:38:04,336 - modules.trainers.base_trainer - INFO - Validation samples: 1000
+2025-06-24 11:38:26,448 - modules.trainers.base_trainer - INFO - Epoch 1 Batch 0 - Images: torch.Size([128, 3, 128, 64]), Labels: torch.Size([128, 9]), Predictions: torch.Size([128, 9, 13])
+2025-06-24 11:38:27,583 - modules.trainers.base_trainer - INFO - Epoch   1 | Batch    0/32 | Loss: 3.0926 | LR: 0.003000
+2025-06-24 11:38:28,215 - modules.trainers.base_trainer - INFO - Epoch 1 Batch 1 - Images: torch.Size([128, 3, 128, 64]), Labels: torch.Size([128, 9]), Predictions: torch.Size([128, 9, 13])
+2025-06-24 11:38:29,945 - modules.trainers.base_trainer - INFO - Epoch 1 Batch 2 - Images: torch.Size([128, 3, 128, 64]), Labels: torch.Size([128, 9]), Predictions: torch.Size([128, 9, 13])
+2025-06-24 11:39:12,363 - modules.trainers.base_trainer - INFO - Epoch   1 | Batch   25/32 | Loss: 2.4284 | LR: 0.003000
+2025-06-24 11:40:03,186 - modules.trainers.base_trainer - INFO - Validation Batch 0 - Images: torch.Size([128, 3, 128, 64]), Labels: torch.Size([128, 9])
+2025-06-24 11:40:03,763 - modules.trainers.base_trainer - INFO - Validation Batch 0 - Predictions: torch.Size([128, 9, 13])
+2025-06-24 11:40:03,777 - modules.trainers.base_trainer - INFO - Validation Batch 1 - Images: torch.Size([128, 3, 128, 64]), Labels: torch.Size([128, 9])
+2025-06-24 11:40:04,327 - modules.trainers.base_trainer - INFO - Validation Batch 1 - Predictions: torch.Size([128, 9, 13])
+2025-06-24 11:40:04,342 - modules.trainers.base_trainer - INFO - Validation Batch 2 - Images: torch.Size([128, 3, 128, 64]), Labels: torch.Size([128, 9])
+2025-06-24 11:40:04,870 - modules.trainers.base_trainer - INFO - Validation Batch 2 - Predictions: torch.Size([128, 9, 13])
+2025-06-24 11:40:27,530 - modules.trainers.base_trainer - INFO - Epoch   1 Results:
+2025-06-24 11:40:27,530 - modules.trainers.base_trainer - INFO -   Train Loss: 3.0512
+2025-06-24 11:40:27,530 - modules.trainers.base_trainer - INFO -   Val Loss:   2.4362
+2025-06-24 11:40:27,530 - modules.trainers.base_trainer - INFO -   Train Char Acc: 15.9%
+2025-06-24 11:40:27,530 - modules.trainers.base_trainer - INFO -   Val Char Acc:   19.6%
+2025-06-24 11:40:27,530 - modules.trainers.base_trainer - INFO -   Train Seq Acc:  0.2%
+2025-06-24 11:40:27,530 - modules.trainers.base_trainer - INFO -   Val Seq Acc:    0.2%
+2025-06-24 11:40:28,356 - modules.trainers.utils - INFO - New best model saved at epoch 1
+2025-06-24 11:40:28,504 - modules.trainers.utils - INFO - Checkpoint saved: training_output/aggressive_learning/checkpoints/checkpoint_epoch_001.pth
+2025-06-24 11:40:49,511 - modules.trainers.base_trainer - INFO - Epoch   2 | Batch    0/32 | Loss: 2.4094 | LR: 0.003000
+2025-06-24 11:41:33,838 - modules.trainers.base_trainer - INFO - Epoch   2 | Batch   25/32 | Loss: 2.4679 | LR: 0.003000
+2025-06-24 11:42:24,565 - modules.trainers.base_trainer - INFO - Validation Batch 0 - Images: torch.Size([128, 3, 128, 64]), Labels: torch.Size([128, 9])
+2025-06-24 11:42:25,168 - modules.trainers.base_trainer - INFO - Validation Batch 0 - Predictions: torch.Size([128, 9, 13])
+2025-06-24 11:42:25,179 - modules.trainers.base_trainer - INFO - Validation Batch 1 - Images: torch.Size([128, 3, 128, 64]), Labels: torch.Size([128, 9])
+2025-06-24 11:42:25,651 - modules.trainers.base_trainer - INFO - Validation Batch 1 - Predictions: torch.Size([128, 9, 13])
+2025-06-24 11:42:25,663 - modules.trainers.base_trainer - INFO - Validation Batch 2 - Images: torch.Size([128, 3, 128, 64]), Labels: torch.Size([128, 9])
+2025-06-24 11:42:26,127 - modules.trainers.base_trainer - INFO - Validation Batch 2 - Predictions: torch.Size([128, 9, 13])
+2025-06-24 11:42:48,445 - modules.trainers.base_trainer - INFO - Epoch   2 Results:
+2025-06-24 11:42:48,446 - modules.trainers.base_trainer - INFO -   Train Loss: 2.3810
+2025-06-24 11:42:48,446 - modules.trainers.base_trainer - INFO -   Val Loss:   2.4831
+2025-06-24 11:42:48,446 - modules.trainers.base_trainer - INFO -   Train Char Acc: 20.8%
+2025-06-24 11:42:48,446 - modules.trainers.base_trainer - INFO -   Val Char Acc:   21.0%
+2025-06-24 11:42:48,446 - modules.trainers.base_trainer - INFO -   Train Seq Acc:  0.5%
+2025-06-24 11:42:48,446 - modules.trainers.base_trainer - INFO -   Val Seq Acc:    0.0%
+2025-06-24 11:42:48,447 - modules.trainers.base_trainer - INFO - Training completed in 284.11 seconds
+2025-06-24 11:42:48,595 - modules.trainers.utils - INFO - Checkpoint loaded: training_output/aggressive_learning/checkpoints/best_model.pth
+2025-06-24 11:42:48,618 - modules.trainers.base_trainer - INFO - Loaded best model from epoch 1
+2025-06-24 11:42:48,638 - __main__ - INFO - Experiment aggressive_learning completed successfully!
+2025-06-24 11:42:48,638 - __main__ - INFO - Best character accuracy: 0.0000
+2025-06-24 11:42:48,700 - __main__ - INFO - Starting experiment: conservative_small
+2025-06-24 11:42:48,704 - modules.trainers.utils - INFO - Training environment setup complete
+2025-06-24 11:42:48,704 - modules.trainers.utils - INFO - Experiment directory: training_output/conservative_small
+2025-06-24 11:42:48,705 - modules.trainers.utils - INFO - Device: cpu
+2025-06-24 11:42:48,705 - modules.trainers.utils - INFO - Mixed precision: False
+2025-06-24 11:42:48,705 - __main__ - INFO - Loading datasets...
+2025-06-24 11:42:59,335 - __main__ - INFO - Training samples: 4000
+2025-06-24 11:42:59,335 - __main__ - INFO - Validation samples: 1000
+2025-06-24 11:42:59,335 - __main__ - INFO - Creating model...
+2025-06-24 11:42:59,524 - modules.trainers.base_trainer - INFO - Model parameters: {'total_parameters': 12484789, 'trainable_parameters': 12484789, 'non_trainable_parameters': 0}
+2025-06-24 11:42:59,524 - modules.trainers.ocr_trainer - INFO - OCR Trainer initialized
+2025-06-24 11:42:59,524 - modules.trainers.ocr_trainer - INFO - Vocabulary size: 13
+2025-06-24 11:42:59,524 - modules.trainers.ocr_trainer - INFO - Characters: ['U+17E0', 'U+17E1', 'U+17E2', 'U+17E3', 'U+17E4', 'U+17E5', 'U+17E6', 'U+17E7', 'U+17E8', 'U+17E9', '<EOS>', '<PAD>', '<BLANK>']
+2025-06-24 11:42:59,524 - __main__ - INFO - Starting training...
+2025-06-24 11:42:59,524 - modules.trainers.base_trainer - INFO - Starting training for 2 epochs
+2025-06-24 11:42:59,524 - modules.trainers.base_trainer - INFO - Training samples: 4000
+2025-06-24 11:42:59,524 - modules.trainers.base_trainer - INFO - Validation samples: 1000
+2025-06-24 11:43:18,913 - modules.trainers.base_trainer - INFO - Epoch 1 Batch 0 - Images: torch.Size([32, 3, 128, 64]), Labels: torch.Size([32, 9]), Predictions: torch.Size([32, 9, 13])
+2025-06-24 11:43:19,257 - modules.trainers.base_trainer - INFO - Epoch   1 | Batch    0/125 | Loss: 2.7797 | LR: 0.001000
+2025-06-24 11:43:19,428 - modules.trainers.base_trainer - INFO - Epoch 1 Batch 1 - Images: torch.Size([32, 3, 128, 64]), Labels: torch.Size([32, 9]), Predictions: torch.Size([32, 9, 13])
+2025-06-24 11:43:19,908 - modules.trainers.base_trainer - INFO - Epoch 1 Batch 2 - Images: torch.Size([32, 3, 128, 64]), Labels: torch.Size([32, 9]), Predictions: torch.Size([32, 9, 13])
+2025-06-24 11:43:31,232 - modules.trainers.base_trainer - INFO - Epoch   1 | Batch   25/125 | Loss: 2.2294 | LR: 0.001000
+2025-06-24 11:43:43,185 - modules.trainers.base_trainer - INFO - Epoch   1 | Batch   50/125 | Loss: 2.1420 | LR: 0.001000
+2025-06-24 11:43:55,166 - modules.trainers.base_trainer - INFO - Epoch   1 | Batch   75/125 | Loss: 2.0395 | LR: 0.001000
+2025-06-24 11:44:07,181 - modules.trainers.base_trainer - INFO - Epoch   1 | Batch  100/125 | Loss: 2.1704 | LR: 0.001000
+2025-06-24 11:44:59,696 - modules.trainers.base_trainer - INFO - Validation Batch 0 - Images: torch.Size([32, 3, 128, 64]), Labels: torch.Size([32, 9])
+2025-06-24 11:44:59,934 - modules.trainers.base_trainer - INFO - Validation Batch 0 - Predictions: torch.Size([32, 9, 13])
+2025-06-24 11:44:59,939 - modules.trainers.base_trainer - INFO - Validation Batch 1 - Images: torch.Size([32, 3, 128, 64]), Labels: torch.Size([32, 9])
+2025-06-24 11:45:00,089 - modules.trainers.base_trainer - INFO - Validation Batch 1 - Predictions: torch.Size([32, 9, 13])
+2025-06-24 11:45:00,094 - modules.trainers.base_trainer - INFO - Validation Batch 2 - Images: torch.Size([32, 3, 128, 64]), Labels: torch.Size([32, 9])
+2025-06-24 11:45:00,266 - modules.trainers.base_trainer - INFO - Validation Batch 2 - Predictions: torch.Size([32, 9, 13])
+2025-06-24 11:45:23,700 - modules.trainers.base_trainer - INFO - Epoch   1 Results:
+2025-06-24 11:45:23,700 - modules.trainers.base_trainer - INFO -   Train Loss: 2.1989
+2025-06-24 11:45:23,700 - modules.trainers.base_trainer - INFO -   Val Loss:   2.1314
+2025-06-24 11:45:23,700 - modules.trainers.base_trainer - INFO -   Train Char Acc: 25.9%
+2025-06-24 11:45:23,701 - modules.trainers.base_trainer - INFO -   Val Char Acc:   26.4%
+2025-06-24 11:45:23,701 - modules.trainers.base_trainer - INFO -   Train Seq Acc:  2.6%
+2025-06-24 11:45:23,701 - modules.trainers.base_trainer - INFO -   Val Seq Acc:    3.4%
+2025-06-24 11:45:24,322 - modules.trainers.utils - INFO - New best model saved at epoch 1
+2025-06-24 11:45:24,417 - modules.trainers.utils - INFO - Checkpoint saved: training_output/conservative_small/checkpoints/checkpoint_epoch_001.pth
+2025-06-24 11:45:43,768 - modules.trainers.base_trainer - INFO - Epoch   2 | Batch    0/125 | Loss: 2.0024 | LR: 0.001000
+2025-06-24 11:45:55,469 - modules.trainers.base_trainer - INFO - Epoch   2 | Batch   25/125 | Loss: 1.9058 | LR: 0.001000
+2025-06-24 11:46:07,921 - modules.trainers.base_trainer - INFO - Epoch   2 | Batch   50/125 | Loss: 1.9953 | LR: 0.001000
+2025-06-24 11:46:21,114 - modules.trainers.base_trainer - INFO - Epoch   2 | Batch   75/125 | Loss: 1.9482 | LR: 0.001000
+2025-06-24 11:46:34,235 - modules.trainers.base_trainer - INFO - Epoch   2 | Batch  100/125 | Loss: 1.9912 | LR: 0.001000
+2025-06-24 11:47:31,511 - modules.trainers.base_trainer - INFO - Validation Batch 0 - Images: torch.Size([32, 3, 128, 64]), Labels: torch.Size([32, 9])
+2025-06-24 11:47:31,685 - modules.trainers.base_trainer - INFO - Validation Batch 0 - Predictions: torch.Size([32, 9, 13])
+2025-06-24 11:47:31,688 - modules.trainers.base_trainer - INFO - Validation Batch 1 - Images: torch.Size([32, 3, 128, 64]), Labels: torch.Size([32, 9])
+2025-06-24 11:47:31,841 - modules.trainers.base_trainer - INFO - Validation Batch 1 - Predictions: torch.Size([32, 9, 13])
+2025-06-24 11:47:31,845 - modules.trainers.base_trainer - INFO - Validation Batch 2 - Images: torch.Size([32, 3, 128, 64]), Labels: torch.Size([32, 9])
+2025-06-24 11:47:31,985 - modules.trainers.base_trainer - INFO - Validation Batch 2 - Predictions: torch.Size([32, 9, 13])
+2025-06-24 11:47:55,599 - modules.trainers.base_trainer - INFO - Epoch   2 Results:
+2025-06-24 11:47:55,599 - modules.trainers.base_trainer - INFO -   Train Loss: 1.9942
+2025-06-24 11:47:55,599 - modules.trainers.base_trainer - INFO -   Val Loss:   2.0069
+2025-06-24 11:47:55,599 - modules.trainers.base_trainer - INFO -   Train Char Acc: 31.4%
+2025-06-24 11:47:55,599 - modules.trainers.base_trainer - INFO -   Val Char Acc:   31.2%
+2025-06-24 11:47:55,599 - modules.trainers.base_trainer - INFO -   Train Seq Acc:  6.5%
+2025-06-24 11:47:55,600 - modules.trainers.base_trainer - INFO -   Val Seq Acc:    5.1%
+2025-06-24 11:47:56,318 - modules.trainers.utils - INFO - New best model saved at epoch 2
+2025-06-24 11:47:56,415 - modules.trainers.utils - INFO - Checkpoint saved: training_output/conservative_small/checkpoints/checkpoint_epoch_002.pth
+2025-06-24 11:47:56,415 - modules.trainers.base_trainer - INFO - Training completed in 296.89 seconds
+2025-06-24 11:47:56,512 - modules.trainers.utils - INFO - Checkpoint loaded: training_output/conservative_small/checkpoints/best_model.pth
+2025-06-24 11:47:56,533 - modules.trainers.base_trainer - INFO - Loaded best model from epoch 2
+2025-06-24 11:47:56,553 - __main__ - INFO - Experiment conservative_small completed successfully!
+2025-06-24 11:47:56,553 - __main__ - INFO - Best character accuracy: 0.0000
+2025-06-24 11:47:56,620 - __main__ - INFO - Starting experiment: focal_loss_experiment
+2025-06-24 11:47:56,637 - modules.trainers.utils - INFO - Training environment setup complete
+2025-06-24 11:47:56,637 - modules.trainers.utils - INFO - Experiment directory: training_output/focal_loss_experiment
+2025-06-24 11:47:56,637 - modules.trainers.utils - INFO - Device: cpu
+2025-06-24 11:47:56,637 - modules.trainers.utils - INFO - Mixed precision: False
+2025-06-24 11:47:56,637 - __main__ - INFO - Loading datasets...
+2025-06-24 11:48:07,388 - __main__ - INFO - Training samples: 4000
+2025-06-24 11:48:07,388 - __main__ - INFO - Validation samples: 1000
+2025-06-24 11:48:07,388 - __main__ - INFO - Creating model...
+2025-06-24 11:48:07,608 - modules.trainers.base_trainer - INFO - Model parameters: {'total_parameters': 16167733, 'trainable_parameters': 16167733, 'non_trainable_parameters': 0}
+2025-06-24 11:48:07,609 - modules.trainers.ocr_trainer - INFO - OCR Trainer initialized
+2025-06-24 11:48:07,609 - modules.trainers.ocr_trainer - INFO - Vocabulary size: 13
+2025-06-24 11:48:07,609 - modules.trainers.ocr_trainer - INFO - Characters: ['U+17E0', 'U+17E1', 'U+17E2', 'U+17E3', 'U+17E4', 'U+17E5', 'U+17E6', 'U+17E7', 'U+17E8', 'U+17E9', '<EOS>', '<PAD>', '<BLANK>']
+2025-06-24 11:48:07,609 - __main__ - INFO - Starting training...
+2025-06-24 11:48:07,609 - modules.trainers.base_trainer - INFO - Starting training for 2 epochs
+2025-06-24 11:48:07,609 - modules.trainers.base_trainer - INFO - Training samples: 4000
+2025-06-24 11:48:07,609 - modules.trainers.base_trainer - INFO - Validation samples: 1000
+2025-06-24 11:48:27,166 - modules.trainers.base_trainer - INFO - Epoch 1 Batch 0 - Images: torch.Size([64, 3, 128, 64]), Labels: torch.Size([64, 9]), Predictions: torch.Size([64, 9, 13])
+2025-06-24 11:48:27,926 - modules.trainers.base_trainer - INFO - Epoch   1 | Batch    0/63 | Loss: 1.8373 | LR: 0.001500
+2025-06-24 11:48:28,270 - modules.trainers.base_trainer - INFO - Epoch 1 Batch 1 - Images: torch.Size([64, 3, 128, 64]), Labels: torch.Size([64, 9]), Predictions: torch.Size([64, 9, 13])
+2025-06-24 11:48:29,321 - modules.trainers.base_trainer - INFO - Epoch 1 Batch 2 - Images: torch.Size([64, 3, 128, 64]), Labels: torch.Size([64, 9]), Predictions: torch.Size([64, 9, 13])
+2025-06-24 11:48:50,779 - modules.trainers.base_trainer - INFO - Epoch   1 | Batch   25/63 | Loss: 1.4184 | LR: 0.001500
+2025-06-24 11:49:13,813 - modules.trainers.base_trainer - INFO - Epoch   1 | Batch   50/63 | Loss: 1.5616 | LR: 0.001500
+2025-06-24 11:50:02,687 - modules.trainers.base_trainer - INFO - Validation Batch 0 - Images: torch.Size([64, 3, 128, 64]), Labels: torch.Size([64, 9])
+2025-06-24 11:50:03,019 - modules.trainers.base_trainer - INFO - Validation Batch 0 - Predictions: torch.Size([64, 9, 13])
+2025-06-24 11:50:03,027 - modules.trainers.base_trainer - INFO - Validation Batch 1 - Images: torch.Size([64, 3, 128, 64]), Labels: torch.Size([64, 9])
+2025-06-24 11:50:03,247 - modules.trainers.base_trainer - INFO - Validation Batch 1 - Predictions: torch.Size([64, 9, 13])
+2025-06-24 11:50:03,252 - modules.trainers.base_trainer - INFO - Validation Batch 2 - Images: torch.Size([64, 3, 128, 64]), Labels: torch.Size([64, 9])
+2025-06-24 11:50:03,520 - modules.trainers.base_trainer - INFO - Validation Batch 2 - Predictions: torch.Size([64, 9, 13])
+2025-06-24 11:50:26,951 - modules.trainers.base_trainer - INFO - Epoch   1 Results:
+2025-06-24 11:50:26,952 - modules.trainers.base_trainer - INFO -   Train Loss: 1.5463
+2025-06-24 11:50:26,952 - modules.trainers.base_trainer - INFO -   Val Loss:   1.3638
+2025-06-24 11:50:26,952 - modules.trainers.base_trainer - INFO -   Train Char Acc: 18.4%
+2025-06-24 11:50:26,952 - modules.trainers.base_trainer - INFO -   Val Char Acc:   23.1%
+2025-06-24 11:50:26,952 - modules.trainers.base_trainer - INFO -   Train Seq Acc:  0.2%
+2025-06-24 11:50:26,952 - modules.trainers.base_trainer - INFO -   Val Seq Acc:    0.7%
+2025-06-24 11:50:27,721 - modules.trainers.utils - INFO - New best model saved at epoch 1
+2025-06-24 11:50:27,853 - modules.trainers.utils - INFO - Checkpoint saved: training_output/focal_loss_experiment/checkpoints/checkpoint_epoch_001.pth
+2025-06-24 11:50:47,921 - modules.trainers.base_trainer - INFO - Epoch   2 | Batch    0/63 | Loss: 1.2822 | LR: 0.000750
+2025-06-24 11:51:12,257 - modules.trainers.base_trainer - INFO - Epoch   2 | Batch   25/63 | Loss: 1.3723 | LR: 0.000750
+2025-06-24 11:51:39,217 - modules.trainers.base_trainer - INFO - Epoch   2 | Batch   50/63 | Loss: 1.1688 | LR: 0.000750
+2025-06-24 11:52:32,146 - modules.trainers.base_trainer - INFO - Validation Batch 0 - Images: torch.Size([64, 3, 128, 64]), Labels: torch.Size([64, 9])
+2025-06-24 11:52:32,439 - modules.trainers.base_trainer - INFO - Validation Batch 0 - Predictions: torch.Size([64, 9, 13])
+2025-06-24 11:52:32,445 - modules.trainers.base_trainer - INFO - Validation Batch 1 - Images: torch.Size([64, 3, 128, 64]), Labels: torch.Size([64, 9])
+2025-06-24 11:52:32,678 - modules.trainers.base_trainer - INFO - Validation Batch 1 - Predictions: torch.Size([64, 9, 13])
+2025-06-24 11:52:32,685 - modules.trainers.base_trainer - INFO - Validation Batch 2 - Images: torch.Size([64, 3, 128, 64]), Labels: torch.Size([64, 9])
+2025-06-24 11:52:32,920 - modules.trainers.base_trainer - INFO - Validation Batch 2 - Predictions: torch.Size([64, 9, 13])
+2025-06-24 11:52:56,107 - modules.trainers.base_trainer - INFO - Epoch   2 Results:
+2025-06-24 11:52:56,108 - modules.trainers.base_trainer - INFO -   Train Loss: 1.2940
+2025-06-24 11:52:56,108 - modules.trainers.base_trainer - INFO -   Val Loss:   1.3251
+2025-06-24 11:52:56,108 - modules.trainers.base_trainer - INFO -   Train Char Acc: 23.9%
+2025-06-24 11:52:56,108 - modules.trainers.base_trainer - INFO -   Val Char Acc:   23.4%
+2025-06-24 11:52:56,108 - modules.trainers.base_trainer - INFO -   Train Seq Acc:  0.4%
+2025-06-24 11:52:56,108 - modules.trainers.base_trainer - INFO -   Val Seq Acc:    0.0%
+2025-06-24 11:52:56,811 - modules.trainers.utils - INFO - New best model saved at epoch 2
+2025-06-24 11:52:56,904 - modules.trainers.utils - INFO - Checkpoint saved: training_output/focal_loss_experiment/checkpoints/checkpoint_epoch_002.pth
+2025-06-24 11:52:56,904 - modules.trainers.base_trainer - INFO - Training completed in 289.30 seconds
+2025-06-24 11:52:57,012 - modules.trainers.utils - INFO - Checkpoint loaded: training_output/focal_loss_experiment/checkpoints/best_model.pth
+2025-06-24 11:52:57,036 - modules.trainers.base_trainer - INFO - Loaded best model from epoch 2
+2025-06-24 11:52:57,054 - __main__ - INFO - Experiment focal_loss_experiment completed successfully!
+2025-06-24 11:52:57,054 - __main__ - INFO - Best character accuracy: 0.0000
+2025-06-24 11:52:57,105 - __main__ - INFO - Starting experiment: ctc_alignment_free
+2025-06-24 11:52:57,152 - modules.trainers.utils - INFO - Training environment setup complete
+2025-06-24 11:52:57,152 - modules.trainers.utils - INFO - Experiment directory: training_output/ctc_alignment_free
+2025-06-24 11:52:57,152 - modules.trainers.utils - INFO - Device: cpu
+2025-06-24 11:52:57,152 - modules.trainers.utils - INFO - Mixed precision: False
+2025-06-24 11:52:57,152 - __main__ - INFO - Loading datasets...
+2025-06-24 11:53:07,478 - __main__ - INFO - Training samples: 4000
+2025-06-24 11:53:07,479 - __main__ - INFO - Validation samples: 1000
+2025-06-24 11:53:07,479 - __main__ - INFO - Creating model...
+2025-06-24 11:53:07,479 - __main__ - ERROR - Experiment ctc_alignment_free failed: Unknown preset: ctc. Available: ['small', 'medium', 'large', 'ctc_small', 'ctc_medium']
+2025-06-24 11:53:07,488 - __main__ - INFO - Starting experiment: large_model_regularized
+2025-06-24 11:53:07,494 - modules.trainers.utils - INFO - Training environment setup complete
+2025-06-24 11:53:07,494 - modules.trainers.utils - INFO - Experiment directory: training_output/large_model_regularized
+2025-06-24 11:53:07,494 - modules.trainers.utils - INFO - Device: cpu
+2025-06-24 11:53:07,494 - modules.trainers.utils - INFO - Mixed precision: False
+2025-06-24 11:53:07,494 - __main__ - INFO - Loading datasets...
+2025-06-24 11:53:17,607 - __main__ - INFO - Training samples: 4000
+2025-06-24 11:53:17,608 - __main__ - INFO - Validation samples: 1000
+2025-06-24 11:53:17,609 - __main__ - INFO - Creating model...
+2025-06-24 11:53:39,856 - modules.trainers.base_trainer - INFO - Model parameters: {'total_parameters': 29067889, 'trainable_parameters': 29067889, 'non_trainable_parameters': 0}
+2025-06-24 11:53:39,856 - modules.trainers.ocr_trainer - INFO - OCR Trainer initialized
+2025-06-24 11:53:39,856 - modules.trainers.ocr_trainer - INFO - Vocabulary size: 13
+2025-06-24 11:53:39,856 - modules.trainers.ocr_trainer - INFO - Characters: ['U+17E0', 'U+17E1', 'U+17E2', 'U+17E3', 'U+17E4', 'U+17E5', 'U+17E6', 'U+17E7', 'U+17E8', 'U+17E9', '<EOS>', '<PAD>', '<BLANK>']
+2025-06-24 11:53:39,856 - __main__ - INFO - Starting training...
+2025-06-24 11:53:39,856 - modules.trainers.base_trainer - INFO - Starting training for 2 epochs
+2025-06-24 11:53:39,857 - modules.trainers.base_trainer - INFO - Training samples: 4000
+2025-06-24 11:53:39,857 - modules.trainers.base_trainer - INFO - Validation samples: 1000
+2025-06-24 11:54:01,239 - modules.trainers.base_trainer - INFO - Epoch 1 Batch 0 - Images: torch.Size([32, 3, 128, 64]), Labels: torch.Size([32, 9]), Predictions: torch.Size([32, 9, 13])
+2025-06-24 11:54:03,260 - modules.trainers.base_trainer - INFO - Epoch   1 | Batch    0/125 | Loss: 3.0191 | LR: 0.000500
+2025-06-24 11:54:03,835 - modules.trainers.base_trainer - INFO - Epoch 1 Batch 1 - Images: torch.Size([32, 3, 128, 64]), Labels: torch.Size([32, 9]), Predictions: torch.Size([32, 9, 13])
+2025-06-24 11:54:06,287 - modules.trainers.base_trainer - INFO - Epoch 1 Batch 2 - Images: torch.Size([32, 3, 128, 64]), Labels: torch.Size([32, 9]), Predictions: torch.Size([32, 9, 13])
+2025-06-24 11:55:02,115 - modules.trainers.base_trainer - INFO - Epoch   1 | Batch   25/125 | Loss: 2.4893 | LR: 0.000500
+2025-06-24 11:55:59,148 - modules.trainers.base_trainer - INFO - Epoch   1 | Batch   50/125 | Loss: 2.3609 | LR: 0.000500
+2025-06-24 11:56:56,321 - modules.trainers.base_trainer - INFO - Epoch   1 | Batch   75/125 | Loss: 2.3446 | LR: 0.000500
+2025-06-24 11:57:51,211 - modules.trainers.base_trainer - INFO - Epoch   1 | Batch  100/125 | Loss: 2.3008 | LR: 0.000500
+2025-06-24 11:59:25,488 - modules.trainers.base_trainer - INFO - Validation Batch 0 - Images: torch.Size([32, 3, 128, 64]), Labels: torch.Size([32, 9])
+2025-06-24 11:59:25,985 - modules.trainers.base_trainer - INFO - Validation Batch 0 - Predictions: torch.Size([32, 9, 13])
+2025-06-24 11:59:25,990 - modules.trainers.base_trainer - INFO - Validation Batch 1 - Images: torch.Size([32, 3, 128, 64]), Labels: torch.Size([32, 9])
+2025-06-24 11:59:26,409 - modules.trainers.base_trainer - INFO - Validation Batch 1 - Predictions: torch.Size([32, 9, 13])
+2025-06-24 11:59:26,414 - modules.trainers.base_trainer - INFO - Validation Batch 2 - Images: torch.Size([32, 3, 128, 64]), Labels: torch.Size([32, 9])
+2025-06-24 11:59:26,838 - modules.trainers.base_trainer - INFO - Validation Batch 2 - Predictions: torch.Size([32, 9, 13])
+2025-06-24 11:59:58,513 - modules.trainers.base_trainer - INFO - Epoch   1 Results:
+2025-06-24 11:59:58,513 - modules.trainers.base_trainer - INFO -   Train Loss: 2.4826
+2025-06-24 11:59:58,513 - modules.trainers.base_trainer - INFO -   Val Loss:   2.6188
+2025-06-24 11:59:58,513 - modules.trainers.base_trainer - INFO -   Train Char Acc: 23.0%
+2025-06-24 11:59:58,513 - modules.trainers.base_trainer - INFO -   Val Char Acc:   17.5%
+2025-06-24 11:59:58,513 - modules.trainers.base_trainer - INFO -   Train Seq Acc:  0.3%
+2025-06-24 11:59:58,513 - modules.trainers.base_trainer - INFO -   Val Seq Acc:    0.0%
+2025-06-24 12:00:00,025 - modules.trainers.utils - INFO - New best model saved at epoch 1
+2025-06-24 12:00:00,269 - modules.trainers.utils - INFO - Checkpoint saved: training_output/large_model_regularized/checkpoints/checkpoint_epoch_001.pth
+2025-06-24 12:00:24,277 - modules.trainers.base_trainer - INFO - Epoch   2 | Batch    0/125 | Loss: 2.2341 | LR: 0.000500
+2025-06-24 12:01:22,922 - modules.trainers.base_trainer - INFO - Epoch   2 | Batch   25/125 | Loss: 2.2729 | LR: 0.000500
+2025-06-24 12:02:18,580 - modules.trainers.base_trainer - INFO - Epoch   2 | Batch   50/125 | Loss: 2.2656 | LR: 0.000500
+2025-06-24 12:03:15,613 - modules.trainers.base_trainer - INFO - Epoch   2 | Batch   75/125 | Loss: 2.2425 | LR: 0.000500
+2025-06-24 12:04:10,500 - modules.trainers.base_trainer - INFO - Epoch   2 | Batch  100/125 | Loss: 2.2400 | LR: 0.000500
+2025-06-24 12:05:45,654 - modules.trainers.base_trainer - INFO - Validation Batch 0 - Images: torch.Size([32, 3, 128, 64]), Labels: torch.Size([32, 9])
+2025-06-24 12:05:46,153 - modules.trainers.base_trainer - INFO - Validation Batch 0 - Predictions: torch.Size([32, 9, 13])
+2025-06-24 12:05:46,159 - modules.trainers.base_trainer - INFO - Validation Batch 1 - Images: torch.Size([32, 3, 128, 64]), Labels: torch.Size([32, 9])
+2025-06-24 12:05:46,626 - modules.trainers.base_trainer - INFO - Validation Batch 1 - Predictions: torch.Size([32, 9, 13])
+2025-06-24 12:05:46,630 - modules.trainers.base_trainer - INFO - Validation Batch 2 - Images: torch.Size([32, 3, 128, 64]), Labels: torch.Size([32, 9])
+2025-06-24 12:05:47,114 - modules.trainers.base_trainer - INFO - Validation Batch 2 - Predictions: torch.Size([32, 9, 13])
+2025-06-24 12:06:18,203 - modules.trainers.base_trainer - INFO - Epoch   2 Results:
+2025-06-24 12:06:18,203 - modules.trainers.base_trainer - INFO -   Train Loss: 2.2851
+2025-06-24 12:06:18,203 - modules.trainers.base_trainer - INFO -   Val Loss:   2.5930
+2025-06-24 12:06:18,203 - modules.trainers.base_trainer - INFO -   Train Char Acc: 27.3%
+2025-06-24 12:06:18,203 - modules.trainers.base_trainer - INFO -   Val Char Acc:   15.9%
+2025-06-24 12:06:18,203 - modules.trainers.base_trainer - INFO -   Train Seq Acc:  1.9%
+2025-06-24 12:06:18,203 - modules.trainers.base_trainer - INFO -   Val Seq Acc:    0.0%
+2025-06-24 12:06:19,643 - modules.trainers.utils - INFO - New best model saved at epoch 2
+2025-06-24 12:06:19,873 - modules.trainers.utils - INFO - Checkpoint saved: training_output/large_model_regularized/checkpoints/checkpoint_epoch_002.pth
+2025-06-24 12:06:19,874 - modules.trainers.base_trainer - INFO - Training completed in 760.02 seconds
+2025-06-24 12:06:20,077 - modules.trainers.utils - INFO - Checkpoint loaded: training_output/large_model_regularized/checkpoints/best_model.pth
+2025-06-24 12:06:20,110 - modules.trainers.base_trainer - INFO - Loaded best model from epoch 2
+2025-06-24 12:06:20,142 - __main__ - INFO - Experiment large_model_regularized completed successfully!
+2025-06-24 12:06:20,142 - __main__ - INFO - Best character accuracy: 0.0000
+2025-06-24 12:06:20,229 - __main__ - INFO - Starting experiment: fast_convergence
+2025-06-24 12:06:20,237 - modules.trainers.utils - INFO - Training environment setup complete
+2025-06-24 12:06:20,237 - modules.trainers.utils - INFO - Experiment directory: training_output/fast_convergence
+2025-06-24 12:06:20,237 - modules.trainers.utils - INFO - Device: cpu
+2025-06-24 12:06:20,237 - modules.trainers.utils - INFO - Mixed precision: False
+2025-06-24 12:06:20,237 - __main__ - INFO - Loading datasets...
+2025-06-24 12:06:31,617 - __main__ - INFO - Training samples: 4000
+2025-06-24 12:06:31,617 - __main__ - INFO - Validation samples: 1000
+2025-06-24 12:06:31,617 - __main__ - INFO - Creating model...
+2025-06-24 12:06:31,835 - modules.trainers.base_trainer - INFO - Model parameters: {'total_parameters': 16167733, 'trainable_parameters': 16167733, 'non_trainable_parameters': 0}
+2025-06-24 12:06:31,835 - modules.trainers.ocr_trainer - INFO - OCR Trainer initialized
+2025-06-24 12:06:31,835 - modules.trainers.ocr_trainer - INFO - Vocabulary size: 13
+2025-06-24 12:06:31,835 - modules.trainers.ocr_trainer - INFO - Characters: ['U+17E0', 'U+17E1', 'U+17E2', 'U+17E3', 'U+17E4', 'U+17E5', 'U+17E6', 'U+17E7', 'U+17E8', 'U+17E9', '<EOS>', '<PAD>', '<BLANK>']
+2025-06-24 12:06:31,835 - __main__ - INFO - Starting training...
+2025-06-24 12:06:31,835 - modules.trainers.base_trainer - INFO - Starting training for 2 epochs
+2025-06-24 12:06:31,835 - modules.trainers.base_trainer - INFO - Training samples: 4000
+2025-06-24 12:06:31,835 - modules.trainers.base_trainer - INFO - Validation samples: 1000
+2025-06-24 12:06:51,403 - modules.trainers.base_trainer - INFO - Epoch 1 Batch 0 - Images: torch.Size([96, 3, 128, 64]), Labels: torch.Size([96, 9]), Predictions: torch.Size([96, 9, 13])
+2025-06-24 12:06:52,254 - modules.trainers.base_trainer - INFO - Epoch   1 | Batch    0/42 | Loss: 3.2056 | LR: 0.005000
+2025-06-24 12:06:52,694 - modules.trainers.base_trainer - INFO - Epoch 1 Batch 1 - Images: torch.Size([96, 3, 128, 64]), Labels: torch.Size([96, 9]), Predictions: torch.Size([96, 9, 13])
+2025-06-24 12:06:53,894 - modules.trainers.base_trainer - INFO - Epoch 1 Batch 2 - Images: torch.Size([96, 3, 128, 64]), Labels: torch.Size([96, 9]), Predictions: torch.Size([96, 9, 13])
+2025-06-24 12:07:26,271 - modules.trainers.base_trainer - INFO - Epoch   1 | Batch   25/42 | Loss: 2.4197 | LR: 0.005000
+2025-06-24 12:08:27,743 - modules.trainers.base_trainer - INFO - Validation Batch 0 - Images: torch.Size([96, 3, 128, 64]), Labels: torch.Size([96, 9])
+2025-06-24 12:08:28,211 - modules.trainers.base_trainer - INFO - Validation Batch 0 - Predictions: torch.Size([96, 9, 13])
+2025-06-24 12:08:28,220 - modules.trainers.base_trainer - INFO - Validation Batch 1 - Images: torch.Size([96, 3, 128, 64]), Labels: torch.Size([96, 9])
+2025-06-24 12:08:28,576 - modules.trainers.base_trainer - INFO - Validation Batch 1 - Predictions: torch.Size([96, 9, 13])
+2025-06-24 12:08:28,585 - modules.trainers.base_trainer - INFO - Validation Batch 2 - Images: torch.Size([96, 3, 128, 64]), Labels: torch.Size([96, 9])
+2025-06-24 12:08:28,957 - modules.trainers.base_trainer - INFO - Validation Batch 2 - Predictions: torch.Size([96, 9, 13])
+2025-06-24 12:08:51,710 - modules.trainers.base_trainer - INFO - Epoch   1 Results:
+2025-06-24 12:08:51,710 - modules.trainers.base_trainer - INFO -   Train Loss: 2.9087
+2025-06-24 12:08:51,710 - modules.trainers.base_trainer - INFO -   Val Loss:   2.3972
+2025-06-24 12:08:51,710 - modules.trainers.base_trainer - INFO -   Train Char Acc: 15.7%
+2025-06-24 12:08:51,710 - modules.trainers.base_trainer - INFO -   Val Char Acc:   19.6%
+2025-06-24 12:08:51,710 - modules.trainers.base_trainer - INFO -   Train Seq Acc:  0.3%
+2025-06-24 12:08:51,710 - modules.trainers.base_trainer - INFO -   Val Seq Acc:    0.0%
+2025-06-24 12:08:52,567 - modules.trainers.utils - INFO - New best model saved at epoch 1
+2025-06-24 12:08:52,683 - modules.trainers.utils - INFO - Checkpoint saved: training_output/fast_convergence/checkpoints/checkpoint_epoch_001.pth
+2025-06-24 12:09:16,250 - modules.trainers.base_trainer - INFO - Epoch   2 | Batch    0/42 | Loss: 2.4186 | LR: 0.002500
+2025-06-24 12:09:50,470 - modules.trainers.base_trainer - INFO - Epoch   2 | Batch   25/42 | Loss: 2.3767 | LR: 0.002500
+2025-06-24 12:10:50,001 - modules.trainers.base_trainer - INFO - Validation Batch 0 - Images: torch.Size([96, 3, 128, 64]), Labels: torch.Size([96, 9])
+2025-06-24 12:10:50,393 - modules.trainers.base_trainer - INFO - Validation Batch 0 - Predictions: torch.Size([96, 9, 13])
+2025-06-24 12:10:50,401 - modules.trainers.base_trainer - INFO - Validation Batch 1 - Images: torch.Size([96, 3, 128, 64]), Labels: torch.Size([96, 9])
+2025-06-24 12:10:50,765 - modules.trainers.base_trainer - INFO - Validation Batch 1 - Predictions: torch.Size([96, 9, 13])
+2025-06-24 12:10:50,773 - modules.trainers.base_trainer - INFO - Validation Batch 2 - Images: torch.Size([96, 3, 128, 64]), Labels: torch.Size([96, 9])
+2025-06-24 12:10:51,113 - modules.trainers.base_trainer - INFO - Validation Batch 2 - Predictions: torch.Size([96, 9, 13])
+2025-06-24 12:11:13,529 - modules.trainers.base_trainer - INFO - Epoch   2 Results:
+2025-06-24 12:11:13,529 - modules.trainers.base_trainer - INFO -   Train Loss: 2.3847
+2025-06-24 12:11:13,529 - modules.trainers.base_trainer - INFO -   Val Loss:   2.3658
+2025-06-24 12:11:13,529 - modules.trainers.base_trainer - INFO -   Train Char Acc: 19.0%
+2025-06-24 12:11:13,529 - modules.trainers.base_trainer - INFO -   Val Char Acc:   19.3%
+2025-06-24 12:11:13,530 - modules.trainers.base_trainer - INFO -   Train Seq Acc:  0.1%
+2025-06-24 12:11:13,530 - modules.trainers.base_trainer - INFO -   Val Seq Acc:    0.0%
+2025-06-24 12:11:14,349 - modules.trainers.utils - INFO - New best model saved at epoch 2
+2025-06-24 12:11:14,506 - modules.trainers.utils - INFO - Checkpoint saved: training_output/fast_convergence/checkpoints/checkpoint_epoch_002.pth
+2025-06-24 12:11:14,506 - modules.trainers.base_trainer - INFO - Training completed in 282.67 seconds
+2025-06-24 12:11:14,615 - modules.trainers.utils - INFO - Checkpoint loaded: training_output/fast_convergence/checkpoints/best_model.pth
+2025-06-24 12:11:14,638 - modules.trainers.base_trainer - INFO - Loaded best model from epoch 2
+2025-06-24 12:11:14,658 - __main__ - INFO - Experiment fast_convergence completed successfully!
+2025-06-24 12:11:14,658 - __main__ - INFO - Best character accuracy: 0.0000
+2025-06-24 12:11:14,710 - __main__ - INFO - Results saved to hyperparameter_tuning_results_20250624_121114.json

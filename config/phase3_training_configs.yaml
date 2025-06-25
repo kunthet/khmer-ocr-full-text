@@ -1,0 +1,248 @@
+# Phase 3.1 Training Configurations for Hyperparameter Tuning
+# Optimized for CPU training with various parameter combinations
+
+# Base configuration template
+base_config: &base
+  # Data configuration
+  data:
+    metadata_path: "generated_data/metadata.yaml"
+    train_split: "train"
+    val_split: "val"
+    num_workers: 4  # Increased for CPU optimization
+    pin_memory: false  # Disabled for CPU
+    augmentation: true
+
+  # Training configuration
+  training:
+    device: "auto"
+    mixed_precision: false  # Disabled for CPU
+    gradient_clip_norm: 1.0
+    log_every_n_steps: 25
+    save_every_n_epochs: 5
+    keep_n_checkpoints: 3
+    use_tensorboard: true
+
+  # Early stopping
+  early_stopping:
+    patience: 8
+    min_delta: 0.001
+    monitor: "val_char_accuracy"
+    mode: "max"
+
+# Base training configuration for reuse
+base_training: &base_training
+  device: "auto"
+  mixed_precision: false
+  gradient_clip_norm: 1.0
+  log_every_n_steps: 25
+  save_every_n_epochs: 5
+  keep_n_checkpoints: 3
+  use_tensorboard: true
+
+# Experiment configurations for hyperparameter tuning
+experiments:
+  
+  # Experiment 1: Baseline with optimized learning rate
+  baseline_optimized:
+    <<: *base
+    experiment_name: "baseline_optimized"
+    model:
+      name: "medium"
+      config_path: "config/model_config.yaml"
+    training:
+      <<: *base_training
+      batch_size: 64  # Increased for better gradient estimates
+      learning_rate: 0.002  # Slightly higher for faster convergence
+      weight_decay: 0.0001
+      num_epochs: 40 # switch for full training
+      loss_type: "crossentropy"
+      label_smoothing: 0.1  # Added for regularization
+    optimizer:
+      type: "adamw"  # Better than Adam for many tasks
+      learning_rate: 0.002
+      weight_decay: 0.0001
+      betas: [0.9, 0.999]
+    scheduler:
+      type: "cosine"
+      warmup_epochs: 3
+      min_lr: 1e-6
+
+  # Experiment 2: Aggressive learning with higher batch size
+  aggressive_learning:
+    <<: *base
+    experiment_name: "aggressive_learning"
+    model:
+      name: "medium"
+      config_path: "config/model_config.yaml"
+    training:
+      <<: *base_training
+      batch_size: 128  # Large batch for stable gradients
+      learning_rate: 0.003
+      weight_decay: 0.0002
+      num_epochs: 35 # switch for full training
+      loss_type: "crossentropy"
+      label_smoothing: 0.15
+    optimizer:
+      type: "adamw"
+      learning_rate: 0.003
+      weight_decay: 0.0002
+      betas: [0.9, 0.999]
+    scheduler:
+      type: "steplr"
+      step_size: 10
+      gamma: 0.5
+
+  # Experiment 3: Conservative approach with small model
+  conservative_small:
+    <<: *base
+    experiment_name: "conservative_small"
+    model:
+      name: "small"
+      config_path: "config/model_config.yaml"
+    training:
+      <<: *base_training
+      batch_size: 32
+      learning_rate: 0.001
+      weight_decay: 0.0001
+      num_epochs: 50 # switch for full training
+      loss_type: "crossentropy"
+      label_smoothing: 0.05
+    optimizer:
+      type: "adam"
+      learning_rate: 0.001
+      weight_decay: 0.0001
+      betas: [0.9, 0.999]
+    scheduler:
+      type: "plateau"
+      patience: 5
+      factor: 0.5
+      min_lr: 1e-7
+
+  # Experiment 4: Focal loss for handling imbalanced characters
+  focal_loss_experiment:
+    <<: *base
+    experiment_name: "focal_loss_experiment"
+    model:
+      name: "medium"
+      config_path: "config/model_config.yaml"
+    training:
+      <<: *base_training
+      batch_size: 64
+      learning_rate: 0.0015
+      weight_decay: 0.0001
+      num_epochs: 40 # switch for full training
+      loss_type: "focal"
+      focal_alpha: 1.0
+      focal_gamma: 2.0
+    optimizer:
+      type: "adamw"
+      learning_rate: 0.0015
+      weight_decay: 0.0001
+      betas: [0.9, 0.999]
+    scheduler:
+      type: "cosine"
+      warmup_epochs: 2
+      min_lr: 1e-6
+
+  # Experiment 5: CTC loss for alignment-free training
+  ctc_alignment_free:
+    <<: *base
+    experiment_name: "ctc_alignment_free"
+    model:
+      name: "ctc_small"  # Fixed model name
+      config_path: "config/model_config.yaml"
+    training:
+      <<: *base_training
+      batch_size: 64
+      learning_rate: 0.001
+      weight_decay: 0.0001
+      num_epochs: 45 # switch for full training
+      loss_type: "ctc"
+    optimizer:
+      type: "adamw"
+      learning_rate: 0.001
+      weight_decay: 0.0001
+      betas: [0.9, 0.999]
+    scheduler:
+      type: "cosine"
+      warmup_epochs: 3
+      min_lr: 1e-6
+
+  # Experiment 6: Large model with careful regularization
+  large_model_regularized:
+    <<: *base
+    experiment_name: "large_model_regularized"
+    model:
+      name: "large"
+      config_path: "config/model_config.yaml"
+    training:
+      <<: *base_training
+      batch_size: 32  # Smaller batch due to model size
+      learning_rate: 0.0005  # Lower LR for large model
+      weight_decay: 0.0005  # Higher weight decay
+      num_epochs: 30 # switch for full training
+      loss_type: "crossentropy"
+      label_smoothing: 0.2
+      gradient_clip_norm: 0.5  # Aggressive clipping
+    optimizer:
+      type: "adamw"
+      learning_rate: 0.0005
+      weight_decay: 0.0005
+      betas: [0.9, 0.999]
+    scheduler:
+      type: "plateau"
+      patience: 4
+      factor: 0.3
+      min_lr: 1e-7
+    early_stopping:
+      patience: 6
+      min_delta: 0.0005
+
+  # Experiment 7: Fast convergence with high learning rate
+  fast_convergence:
+    <<: *base
+    experiment_name: "fast_convergence"
+    model:
+      name: "medium"
+      config_path: "config/model_config.yaml"
+    training:
+      <<: *base_training
+      batch_size: 96
+      learning_rate: 0.005  # High initial LR
+      weight_decay: 0.0001
+      num_epochs: 25 # switch for full training
+      loss_type: "crossentropy"
+      label_smoothing: 0.1
+    optimizer:
+      type: "adamw"
+      learning_rate: 0.005
+      weight_decay: 0.0001
+      betas: [0.9, 0.999]
+    scheduler:
+      type: "cosine"
+      warmup_epochs: 2
+      min_lr: 1e-6
+    early_stopping:
+      patience: 5
+      min_delta: 0.002
+
+# CPU Optimization Settings
+cpu_optimization:
+  data_loading:
+    num_workers: 4
+    pin_memory: false
+    persistent_workers: true
+  training:
+    compile_model: false  # Model compilation for CPU
+    gradient_accumulation_steps: 1
+    find_unused_parameters: false
+  memory:
+    empty_cache_steps: 100
+    max_memory_fraction: 0.8
+
+# Performance targets for Phase 3.1
+targets:
+  character_accuracy: 0.85  # Target 85% character accuracy
+  sequence_accuracy: 0.70   # Target 70% sequence accuracy
+  training_time_per_epoch: 300  # Max 5 minutes per epoch on CPU
+  convergence_epochs: 20     # Target convergence within 20 epochs 

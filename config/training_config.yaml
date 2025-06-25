@@ -1,0 +1,73 @@
+# Training Configuration for Khmer Digits OCR
+# This file contains all training parameters and settings
+
+# Model Configuration
+model_name: "medium"  # Options: small, medium, large, ctc_small, ctc_medium
+model_config_path: "config/model_config.yaml"
+
+# Data Configuration
+metadata_path: "generated_data/metadata.yaml"
+batch_size: 32
+num_workers: 4
+pin_memory: true
+
+# Training Configuration
+num_epochs: 50
+learning_rate: 0.001
+weight_decay: 0.0001
+gradient_clip_norm: 1.0
+
+# Loss Configuration
+loss_type: "crossentropy"  # Options: crossentropy, ctc, focal
+label_smoothing: 0.0
+
+# Scheduler Configuration
+scheduler_type: "steplr"  # Options: steplr, cosine, plateau
+step_size: 10
+gamma: 0.5
+
+# Early Stopping
+early_stopping_patience: 10
+early_stopping_min_delta: 0.0001
+
+# Checkpointing
+save_every_n_epochs: 5
+keep_n_checkpoints: 3
+
+# Logging
+log_every_n_steps: 50
+use_tensorboard: true
+
+# Paths
+output_dir: "training_output"
+experiment_name: "khmer_ocr_experiment"
+
+# Device and Performance
+device: "auto"  # Options: auto, cuda, cpu
+mixed_precision: true
+
+# Data Augmentation (for training transforms)
+augmentation_strength: 0.3
+image_size: [128, 64]  # [width, height]
+
+# Character Mapping (if using custom vocabulary)
+# char_to_idx:
+#   '០': 0
+#   '១': 1
+#   '២': 2
+#   '៣': 3
+#   '៤': 4
+#   '៥': 5
+#   '៦': 6
+#   '៧': 7
+#   '៨': 8
+#   '៩': 9
+#   '<EOS>': 10
+#   '<PAD>': 11
+#   '<BLANK>': 12
+
+# Advanced Training Options
+# seed: 42
+# resume_from_checkpoint: null
+# eval_only: false
+# save_predictions: false 

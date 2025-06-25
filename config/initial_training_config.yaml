@@ -1,0 +1,67 @@
+# Initial Training Configuration for Khmer Digits OCR
+# Step 2.3: Initial Training and Debugging
+
+# Model Configuration
+model:
+  type: 'ocr_model'
+  backbone: 'resnet18'
+  hidden_dim: 256
+  num_layers: 2
+  dropout: 0.1
+  max_sequence_length: 8
+  num_classes: 13  # 10 digits + 3 special tokens
+
+# Training Configuration
+training:
+  batch_size: 32
+  learning_rate: 0.001
+  weight_decay: 1e-4
+  num_epochs: 15  # Start with fewer epochs for initial debugging
+  gradient_clip_norm: 1.0
+  loss_type: 'crossentropy'
+  label_smoothing: 0.0
+  mixed_precision: true
+
+# Optimizer Configuration
+optimizer:
+  type: 'adam'
+  learning_rate: 0.001
+  weight_decay: 1e-4
+  betas: [0.9, 0.999]
+
+# Scheduler Configuration
+scheduler:
+  type: 'cosine'
+  warmup_epochs: 2
+  min_lr: 1e-6
+
+# Early Stopping Configuration
+early_stopping:
+  patience: 5
+  min_delta: 0.001
+  monitor: 'val_char_accuracy'
+  mode: 'max'
+
+# Data Configuration
+data:
+  train_split: 'train'
+  val_split: 'val'
+  num_workers: 2
+  pin_memory: true
+  augmentation: true
+
+# Debugging Configuration
+debug:
+  check_gradients: true
+  log_sample_predictions: true
+  save_training_samples: true
+  analyze_errors: true
+  confusion_matrix: true
+  verbose_logging: true
+
+# Experiment Configuration
+experiment:
+  name: "initial_training_baseline"
+  save_checkpoints: true
+  checkpoint_frequency: 5  # Save every 5 epochs
+  log_frequency: 10  # Log every 10 batches 

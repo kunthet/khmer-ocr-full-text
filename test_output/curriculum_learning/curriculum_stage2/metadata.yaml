@@ -1,0 +1,815 @@
+curriculum_stage: stage2
+dataset_info:
+  character_subset_size: 30
+  content_types: &id001
+  - characters
+  - syllables
+  - words
+  curriculum_stage: stage2
+  fonts_used:
+  - KhmerOS
+  - KhmerOSbattambang
+  - KhmerOSbokor
+  - KhmerOSfasthand
+  - KhmerOSmetalchrieng
+  - KhmerOSmuol
+  - KhmerOSmuollight
+  - KhmerOSsiemreap
+  generated_by: SyntheticDataGenerator v2.0 - Curriculum Learning
+  image_size:
+  - 128
+  - 64
+  length_range: &id002 !!python/tuple
+  - 1
+  - 10
+  stage_description: Medium-frequency characters (top 60)
+  total_samples: 20
+  train_samples: 16
+  val_samples: 4
+stage_config:
+  character_limit: 60
+  content_types: *id001
+  content_weights:
+  - 0.4
+  - 0.4
+  - 0.2
+  description: Medium-frequency characters (top 60)
+  length_range: *id002
+train:
+  samples:
+  - augmentation:
+      applied_augmentations:
+      - brightness_factor
+      - contrast_factor
+      - noise_std
+      - motion_blur_size
+      - motion_blur_angle
+      - blur_type
+      - perspective_intensity
+      num_augmentations: 7
+      parameters:
+        blur_type: motion
+        brightness_factor: 0.033744905237610645
+        contrast_factor: 0.032954727068424505
+        motion_blur_angle: 75.81963152077125
+        motion_blur_size: 6
+        noise_std: 0.005135115203339881
+        perspective_intensity: 0.1431432083383007
+    character_count: 9
+    content_type: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U9
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 36
+      - 4
+      - 8
+    - !!binary |
+      cwAAAHkAAABsAAAAbAAAAGEAAABiAAAAbAAAAGUAAABzAAAA
+    curriculum_stage: stage2
+    font: KhmerOSbattambang
+    font_size: 20
+    image_filename: train_000000.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\curriculum_learning\curriculum_stage2\train\train_000000.png
+    image_size: &id003 !!python/tuple
+    - 128
+    - 64
+    label: មកបនមំបូរ
+    text_color: &id005 !!python/tuple
+    - 64
+    - 64
+    - 64
+    text_position: !!python/tuple
+    - 19
+    - 14
+  - augmentation:
+      applied_augmentations:
+      - brightness_factor
+      - contrast_factor
+      - blur_radius
+      - blur_type
+      num_augmentations: 4
+      parameters:
+        blur_radius: 0.19460133754900188
+        blur_type: gaussian
+        brightness_factor: -0.02635067307251976
+        contrast_factor: 0.0028863107464925375
+    character_count: 3
+    content_type: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U10
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 40
+      - 4
+      - 8
+    - !!binary |
+      YwAAAGgAAABhAAAAcgAAAGEAAABjAAAAdAAAAGUAAAByAAAAcwAAAA==
+    curriculum_stage: stage2
+    font: KhmerOSmetalchrieng
+    font_size: 34
+    image_filename: train_000001.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\curriculum_learning\curriculum_stage2\train\train_000001.png
+    image_size: *id003
+    label: ជរង
+    text_color: &id004 !!python/tuple
+    - 0
+    - 0
+    - 0
+    text_position: !!python/tuple
+    - 30
+    - 0
+  - augmentation:
+      applied_augmentations:
+      - contrast_factor
+      - perspective_intensity
+      num_augmentations: 2
+      parameters:
+        contrast_factor: -0.002363512431955428
+        perspective_intensity: 0.07854770851207704
+    character_count: 2
+    content_type: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U9
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 36
+      - 4
+      - 8
+    - !!binary |
+      cwAAAHkAAABsAAAAbAAAAGEAAABiAAAAbAAAAGUAAABzAAAA
+    curriculum_stage: stage2
+    font: KhmerOSmuollight
+    font_size: 36
+    image_filename: train_000002.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\curriculum_learning\curriculum_stage2\train\train_000002.png
+    image_size: *id003
+    label: ម្
+    text_color: *id004
+    text_position: !!python/tuple
+    - 48
+    - -5
+  - augmentation:
+      applied_augmentations:
+      - contrast_factor
+      - blur_radius
+      - blur_type
+      num_augmentations: 3
+      parameters:
+        blur_radius: 0.5805119665163775
+        blur_type: gaussian
+        contrast_factor: -0.18154967440611777
+    character_count: 2
+    content_type: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U5
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 20
+      - 4
+      - 8
+    - !!binary |
+      dwAAAG8AAAByAAAAZAAAAHMAAAA=
+    curriculum_stage: stage2
+    font: KhmerOS
+    font_size: 36
+    image_filename: train_000003.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\curriculum_learning\curriculum_stage2\train\train_000003.png
+    image_size: *id003
+    label: តែ
+    text_color: *id005
+    text_position: !!python/tuple
+    - 43
+    - 4
+  - augmentation:
+      applied_augmentations:
+      - rotation_angle
+      - brightness_factor
+      - contrast_factor
+      - speckle_intensity
+      num_augmentations: 4
+      parameters:
+        brightness_factor: -0.1715505761385328
+        contrast_factor: -0.17312790114768226
+        rotation_angle: 4.391509800211537
+        speckle_intensity: 0.04636580521774431
+    character_count: 8
+    content_type: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U9
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 36
+      - 4
+      - 8
+    - !!binary |
+      cwAAAHkAAABsAAAAbAAAAGEAAABiAAAAbAAAAGUAAABzAAAA
+    curriculum_stage: stage2
+    font: KhmerOSbattambang
+    font_size: 24
+    image_filename: train_000004.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\curriculum_learning\curriculum_stage2\train\train_000004.png
+    image_size: *id003
+    label: រជកប្ណ្ើ
+    text_color: &id007 !!python/tuple
+    - 32
+    - 32
+    - 32
+    text_position: !!python/tuple
+    - 23
+    - 9
+  - augmentation:
+      applied_augmentations:
+      - contrast_factor
+      num_augmentations: 1
+      parameters:
+        contrast_factor: -0.11419622431936212
+    character_count: 11
+    content_type: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U10
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 40
+      - 4
+      - 8
+    - !!binary |
+      YwAAAGgAAABhAAAAcgAAAGEAAABjAAAAdAAAAGUAAAByAAAAcwAAAA==
+    curriculum_stage: stage2
+    font: KhmerOSbokor
+    font_size: 19
+    image_filename: train_000005.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\curriculum_learning\curriculum_stage2\train\train_000005.png
+    image_size: *id003
+    label: នយ្រ្ូ្ផរមា
+    text_color: *id004
+    text_position: !!python/tuple
+    - 30
+    - 7
+  - augmentation:
+      applied_augmentations:
+      - rotation_angle
+      - brightness_factor
+      - noise_std
+      - speckle_intensity
+      - perspective_intensity
+      num_augmentations: 5
+      parameters:
+        brightness_factor: 0.17392485709522004
+        noise_std: 0.00947189142852753
+        perspective_intensity: 0.12827379913186177
+        rotation_angle: -8.281297345700276
+        speckle_intensity: 0.04229485758165885
+    character_count: 9
+    content_type: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U10
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 40
+      - 4
+      - 8
+    - !!binary |
+      YwAAAGgAAABhAAAAcgAAAGEAAABjAAAAdAAAAGUAAAByAAAAcwAAAA==
+    curriculum_stage: stage2
+    font: KhmerOSmuol
+    font_size: 22
+    image_filename: train_000006.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\curriculum_learning\curriculum_stage2\train\train_000006.png
+    image_size: *id003
+    label: ដងី្លបវា្
+    text_color: *id005
+    text_position: !!python/tuple
+    - 14
+    - 10
+  - augmentation:
+      applied_augmentations:
+      - brightness_factor
+      - contrast_factor
+      - noise_std
+      - perspective_intensity
+      num_augmentations: 4
+      parameters:
+        brightness_factor: 0.1377951131595811
+        contrast_factor: -0.10679616316938728
+        noise_std: 0.005501930637997124
+        perspective_intensity: 0.08951988636186205
+    character_count: 8
+    content_type: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U10
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 40
+      - 4
+      - 8
+    - !!binary |
+      YwAAAGgAAABhAAAAcgAAAGEAAABjAAAAdAAAAGUAAAByAAAAcwAAAA==
+    curriculum_stage: stage2
+    font: KhmerOSbokor
+    font_size: 24
+    image_filename: train_000007.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\curriculum_learning\curriculum_stage2\train\train_000007.png
+    image_size: *id003
+    label: តាក្គរាជ
+    text_color: &id006 !!python/tuple
+    - 96
+    - 96
+    - 96
+    text_position: !!python/tuple
+    - 32
+    - 4
+  - augmentation:
+      applied_augmentations:
+      - rotation_angle
+      - brightness_factor
+      - blur_radius
+      - blur_type
+      num_augmentations: 4
+      parameters:
+        blur_radius: 0.5659439602518412
+        blur_type: gaussian
+        brightness_factor: 0.10100227375174825
+        rotation_angle: -10.437194892753269
+    character_count: 7
+    content_type: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U10
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 40
+      - 4
+      - 8
+    - !!binary |
+      YwAAAGgAAABhAAAAcgAAAGEAAABjAAAAdAAAAGUAAAByAAAAcwAAAA==
+    curriculum_stage: stage2
+    font: KhmerOSfasthand
+    font_size: 26
+    image_filename: train_000008.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\curriculum_learning\curriculum_stage2\train\train_000008.png
+    image_size: *id003
+    label: ទេង្ពាល
+    text_color: *id004
+    text_position: !!python/tuple
+    - 17
+    - 0
+  - augmentation:
+      applied_augmentations:
+      - brightness_factor
+      - speckle_intensity
+      num_augmentations: 2
+      parameters:
+        brightness_factor: 0.02070407815676506
+        speckle_intensity: 0.02856056434806907
+    character_count: 4
+    content_type: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U10
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 40
+      - 4
+      - 8
+    - !!binary |
+      YwAAAGgAAABhAAAAcgAAAGEAAABjAAAAdAAAAGUAAAByAAAAcwAAAA==
+    curriculum_stage: stage2
+    font: KhmerOSsiemreap
+    font_size: 32
+    image_filename: train_000009.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\curriculum_learning\curriculum_stage2\train\train_000009.png
+    image_size: *id003
+    label: មាីេ
+    text_color: *id004
+    text_position: !!python/tuple
+    - 20
+    - 12
+  - augmentation:
+      applied_augmentations:
+      - rotation_angle
+      - brightness_factor
+      - contrast_factor
+      - noise_std
+      num_augmentations: 4
+      parameters:
+        brightness_factor: 0.10676176072017807
+        contrast_factor: 0.13102732149760415
+        noise_std: 0.007245649521945476
+        rotation_angle: 10.719566694777793
+    character_count: 6
+    content_type: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U10
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 40
+      - 4
+      - 8
+    - !!binary |
+      YwAAAGgAAABhAAAAcgAAAGEAAABjAAAAdAAAAGUAAAByAAAAcwAAAA==
+    curriculum_stage: stage2
+    font: KhmerOSbattambang
+    font_size: 24
+    image_filename: train_000010.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\curriculum_learning\curriculum_stage2\train\train_000010.png
+    image_size: *id003
+    label: ណាមកូន
+    text_color: *id006
+    text_position: !!python/tuple
+    - 19
+    - 7
+  - augmentation:
+      applied_augmentations:
+      - rotation_angle
+      - brightness_factor
+      - noise_std
+      - blur_radius
+      - blur_type
+      num_augmentations: 5
+      parameters:
+        blur_radius: 0.12234445850485579
+        blur_type: gaussian
+        brightness_factor: 0.010883978731392074
+        noise_std: 0.005534327802822165
+        rotation_angle: -1.751012272660958
+    character_count: 10
+    content_type: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U10
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 40
+      - 4
+      - 8
+    - !!binary |
+      YwAAAGgAAABhAAAAcgAAAGEAAABjAAAAdAAAAGUAAAByAAAAcwAAAA==
+    curriculum_stage: stage2
+    font: KhmerOSfasthand
+    font_size: 16
+    image_filename: train_000011.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\curriculum_learning\curriculum_stage2\train\train_000011.png
+    image_size: *id003
+    label: រីននយារលបរ
+    text_color: *id007
+    text_position: !!python/tuple
+    - 12
+    - 18
+  - augmentation:
+      applied_augmentations:
+      - rotation_angle
+      - brightness_factor
+      - noise_std
+      num_augmentations: 3
+      parameters:
+        brightness_factor: 0.02554132934906192
+        noise_std: 0.007432257487607479
+        rotation_angle: 13.93938910737868
+    character_count: 11
+    content_type: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U10
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 40
+      - 4
+      - 8
+    - !!binary |
+      YwAAAGgAAABhAAAAcgAAAGEAAABjAAAAdAAAAGUAAAByAAAAcwAAAA==
+    curriculum_stage: stage2
+    font: KhmerOSfasthand
+    font_size: 19
+    image_filename: train_000012.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\curriculum_learning\curriculum_stage2\train\train_000012.png
+    image_size: *id003
+    label: ិជមរតយ្ប្ស្
+    text_color: *id007
+    text_position: !!python/tuple
+    - 13
+    - 10
+  - augmentation:
+      applied_augmentations:
+      - brightness_factor
+      - contrast_factor
+      num_augmentations: 2
+      parameters:
+        brightness_factor: 0.08527263939223306
+        contrast_factor: -0.04902313031994626
+    character_count: 8
+    content_type: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U10
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 40
+      - 4
+      - 8
+    - !!binary |
+      YwAAAGgAAABhAAAAcgAAAGEAAABjAAAAdAAAAGUAAAByAAAAcwAAAA==
+    curriculum_stage: stage2
+    font: KhmerOSmetalchrieng
+    font_size: 20
+    image_filename: train_000013.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\curriculum_learning\curriculum_stage2\train\train_000013.png
+    image_size: *id003
+    label: ិប្សាីសង
+    text_color: *id007
+    text_position: !!python/tuple
+    - 15
+    - 11
+  - augmentation:
+      applied_augmentations:
+      - brightness_factor
+      - contrast_factor
+      num_augmentations: 2
+      parameters:
+        brightness_factor: 0.15714525950879404
+        contrast_factor: -0.061117162987839396
+    character_count: 7
+    content_type: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U10
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 40
+      - 4
+      - 8
+    - !!binary |
+      YwAAAGgAAABhAAAAcgAAAGEAAABjAAAAdAAAAGUAAAByAAAAcwAAAA==
+    curriculum_stage: stage2
+    font: KhmerOS
+    font_size: 14
+    image_filename: train_000014.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\curriculum_learning\curriculum_stage2\train\train_000014.png
+    image_size: *id003
+    label: ្ាាាាាគ
+    text_color: *id004
+    text_position: !!python/tuple
+    - 19
+    - 17
+  - augmentation:
+      applied_augmentations:
+      - brightness_factor
+      - contrast_factor
+      - blur_radius
+      - blur_type
+      num_augmentations: 4
+      parameters:
+        blur_radius: 0.9958067610289767
+        blur_type: gaussian
+        brightness_factor: 0.09026724251077062
+        contrast_factor: -0.08482980668070789
+    character_count: 6
+    content_type: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U10
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 40
+      - 4
+      - 8
+    - !!binary |
+      YwAAAGgAAABhAAAAcgAAAGEAAABjAAAAdAAAAGUAAAByAAAAcwAAAA==
+    curriculum_stage: stage2
+    font: KhmerOSmuol
+    font_size: 28
+    image_filename: train_000015.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\curriculum_learning\curriculum_stage2\train\train_000015.png
+    image_size: *id003
+    label: ម្ុងិា
+    text_color: *id007
+    text_position: !!python/tuple
+    - 24
+    - 4
+val:
+  samples:
+  - augmentation: {}
+    character_count: 8
+    content_type: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U5
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 20
+      - 4
+      - 8
+    - !!binary |
+      dwAAAG8AAAByAAAAZAAAAHMAAAA=
+    curriculum_stage: stage2
+    font: KhmerOSmuol
+    font_size: 16
+    image_filename: val_000000.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\curriculum_learning\curriculum_stage2\val\val_000000.png
+    image_size: *id003
+    label: ្េមនននមត
+    text_color: *id006
+    text_position: !!python/tuple
+    - 12
+    - 13
+  - augmentation: {}
+    character_count: 2
+    content_type: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U9
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 36
+      - 4
+      - 8
+    - !!binary |
+      cwAAAHkAAABsAAAAbAAAAGEAAABiAAAAbAAAAGUAAABzAAAA
+    curriculum_stage: stage2
+    font: KhmerOSfasthand
+    font_size: 36
+    image_filename: val_000001.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\curriculum_learning\curriculum_stage2\val\val_000001.png
+    image_size: *id003
+    label: លា
+    text_color: *id006
+    text_position: !!python/tuple
+    - 36
+    - -8
+  - augmentation: {}
+    character_count: 2
+    content_type: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U9
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 36
+      - 4
+      - 8
+    - !!binary |
+      cwAAAHkAAABsAAAAbAAAAGEAAABiAAAAbAAAAGUAAABzAAAA
+    curriculum_stage: stage2
+    font: KhmerOSfasthand
+    font_size: 36
+    image_filename: val_000002.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\curriculum_learning\curriculum_stage2\val\val_000002.png
+    image_size: *id003
+    label: កា
+    text_color: *id005
+    text_position: !!python/tuple
+    - 44
+    - -8
+  - augmentation: {}
+    character_count: 9
+    content_type: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - U10
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - 40
+      - 4
+      - 8
+    - !!binary |
+      YwAAAGgAAABhAAAAcgAAAGEAAABjAAAAdAAAAGUAAAByAAAAcwAAAA==
+    curriculum_stage: stage2
+    font: KhmerOSbattambang
+    font_size: 16
+    image_filename: val_000003.png
+    image_path: D:\Dev\khm\kh_ocr_prototype\test_output\curriculum_learning\curriculum_stage2\val\val_000003.png
+    image_size: *id003
+    label: តិលទា្ាបក
+    text_color: *id006
+    text_position: !!python/tuple
+    - 18
+    - 17

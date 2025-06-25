@@ -1,0 +1,138 @@
+# Phase 3.1 Simple Training Configurations
+# Hyperparameter tuning experiments for CPU optimization
+
+experiments:
+  
+  # Experiment 1: Baseline optimized
+  baseline_optimized:
+    experiment_name: "baseline_optimized"
+    model:
+      name: "medium"
+      config_path: "config/model_config.yaml"
+    data:
+      metadata_path: "generated_data/metadata.yaml"
+      train_split: "train"
+      val_split: "val"
+      num_workers: 4
+      pin_memory: false
+      augmentation: true
+    training:
+      device: "auto"
+      mixed_precision: false
+      gradient_clip_norm: 1.0
+      log_every_n_steps: 25
+      save_every_n_epochs: 5
+      keep_n_checkpoints: 3
+      use_tensorboard: true
+      batch_size: 64
+      learning_rate: 0.002
+      weight_decay: 0.0001
+      num_epochs: 30
+      loss_type: "crossentropy"
+      label_smoothing: 0.1
+    optimizer:
+      type: "adamw"
+      learning_rate: 0.002
+      weight_decay: 0.0001
+      betas: [0.9, 0.999]
+    scheduler:
+      type: "cosine"
+      warmup_epochs: 3
+      min_lr: 1e-6
+    early_stopping:
+      patience: 8
+      min_delta: 0.001
+      monitor: "val_char_accuracy"
+      mode: "max"
+
+  # Experiment 2: Small model conservative
+  conservative_small:
+    experiment_name: "conservative_small"
+    model:
+      name: "small"
+      config_path: "config/model_config.yaml"
+    data:
+      metadata_path: "generated_data/metadata.yaml"
+      train_split: "train"
+      val_split: "val"
+      num_workers: 4
+      pin_memory: false
+      augmentation: true
+    training:
+      device: "auto"
+      mixed_precision: false
+      gradient_clip_norm: 1.0
+      log_every_n_steps: 25
+      save_every_n_epochs: 5
+      keep_n_checkpoints: 3
+      use_tensorboard: true
+      batch_size: 32
+      learning_rate: 0.001
+      weight_decay: 0.0001
+      num_epochs: 40
+      loss_type: "crossentropy"
+      label_smoothing: 0.05
+    optimizer:
+      type: "adam"
+      learning_rate: 0.001
+      weight_decay: 0.0001
+      betas: [0.9, 0.999]
+    scheduler:
+      type: "plateau"
+      patience: 5
+      factor: 0.5
+      min_lr: 1e-7
+    early_stopping:
+      patience: 10
+      min_delta: 0.001
+      monitor: "val_char_accuracy"
+      mode: "max"
+
+  # Experiment 3: Higher learning rate
+  high_learning_rate:
+    experiment_name: "high_learning_rate"
+    model:
+      name: "medium"
+      config_path: "config/model_config.yaml"
+    data:
+      metadata_path: "generated_data/metadata.yaml"
+      train_split: "train"
+      val_split: "val"
+      num_workers: 4
+      pin_memory: false
+      augmentation: true
+    training:
+      device: "auto"
+      mixed_precision: false
+      gradient_clip_norm: 1.0
+      log_every_n_steps: 25
+      save_every_n_epochs: 5
+      keep_n_checkpoints: 3
+      use_tensorboard: true
+      batch_size: 96
+      learning_rate: 0.003
+      weight_decay: 0.0002
+      num_epochs: 25
+      loss_type: "crossentropy"
+      label_smoothing: 0.15
+    optimizer:
+      type: "adamw"
+      learning_rate: 0.003
+      weight_decay: 0.0002
+      betas: [0.9, 0.999]
+    scheduler:
+      type: "steplr"
+      step_size: 8
+      gamma: 0.5
+    early_stopping:
+      patience: 6
+      min_delta: 0.002
+      monitor: "val_char_accuracy"
+      mode: "max"
+
+# Performance targets
+targets:
+  character_accuracy: 0.85
+  sequence_accuracy: 0.70
+  training_time_per_epoch: 300
+  convergence_epochs: 20 

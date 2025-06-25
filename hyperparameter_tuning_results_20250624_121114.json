@@ -1,0 +1,122 @@
+{
+  "best_result": {
+    "experiment_name": "baseline_optimized",
+    "status": "completed",
+    "training_time": 316.8776180744171,
+    "best_val_char_accuracy": 0,
+    "best_val_seq_accuracy": 0,
+    "final_train_loss": Infinity,
+    "hyperparameters": {
+      "model_name": "medium",
+      "batch_size": 64,
+      "learning_rate": 0.002,
+      "weight_decay": 0.0001,
+      "loss_type": "crossentropy",
+      "scheduler_type": "cosine"
+    }
+  },
+  "all_results": [
+    {
+      "experiment_name": "baseline_optimized",
+      "status": "completed",
+      "training_time": 316.8776180744171,
+      "best_val_char_accuracy": 0,
+      "best_val_seq_accuracy": 0,
+      "final_train_loss": Infinity,
+      "hyperparameters": {
+        "model_name": "medium",
+        "batch_size": 64,
+        "learning_rate": 0.002,
+        "weight_decay": 0.0001,
+        "loss_type": "crossentropy",
+        "scheduler_type": "cosine"
+      }
+    },
+    {
+      "experiment_name": "aggressive_learning",
+      "status": "completed",
+      "training_time": 295.5491797924042,
+      "best_val_char_accuracy": 0,
+      "best_val_seq_accuracy": 0,
+      "final_train_loss": Infinity,
+      "hyperparameters": {
+        "model_name": "medium",
+        "batch_size": 128,
+        "learning_rate": 0.003,
+        "weight_decay": 0.0002,
+        "loss_type": "crossentropy",
+        "scheduler_type": "steplr"
+      }
+    },
+    {
+      "experiment_name": "conservative_small",
+      "status": "completed",
+      "training_time": 307.85320711135864,
+      "best_val_char_accuracy": 0,
+      "best_val_seq_accuracy": 0,
+      "final_train_loss": Infinity,
+      "hyperparameters": {
+        "model_name": "small",
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "loss_type": "crossentropy",
+        "scheduler_type": "plateau"
+      }
+    },
+    {
+      "experiment_name": "focal_loss_experiment",
+      "status": "completed",
+      "training_time": 300.4335060119629,
+      "best_val_char_accuracy": 0,
+      "best_val_seq_accuracy": 0,
+      "final_train_loss": Infinity,
+      "hyperparameters": {
+        "model_name": "medium",
+        "batch_size": 64,
+        "learning_rate": 0.0015,
+        "weight_decay": 0.0001,
+        "loss_type": "focal",
+        "scheduler_type": "cosine"
+      }
+    },
+    {
+      "experiment_name": "ctc_alignment_free",
+      "status": "failed",
+      "error": "Unknown preset: ctc. Available: ['small', 'medium', 'large', 'ctc_small', 'ctc_medium']",
+      "training_time": 10.355321884155273
+    },
+    {
+      "experiment_name": "large_model_regularized",
+      "status": "completed",
+      "training_time": 792.6534671783447,
+      "best_val_char_accuracy": 0,
+      "best_val_seq_accuracy": 0,
+      "final_train_loss": Infinity,
+      "hyperparameters": {
+        "model_name": "large",
+        "batch_size": 32,
+        "learning_rate": 0.0005,
+        "weight_decay": 0.0005,
+        "loss_type": "crossentropy",
+        "scheduler_type": "plateau"
+      }
+    },
+    {
+      "experiment_name": "fast_convergence",
+      "status": "completed",
+      "training_time": 294.429310798645,
+      "best_val_char_accuracy": 0,
+      "best_val_seq_accuracy": 0,
+      "final_train_loss": Infinity,
+      "hyperparameters": {
+        "model_name": "medium",
+        "batch_size": 96,
+        "learning_rate": 0.005,
+        "weight_decay": 0.0001,
+        "loss_type": "crossentropy",
+        "scheduler_type": "cosine"
+      }
+    }
+  ]
+}
