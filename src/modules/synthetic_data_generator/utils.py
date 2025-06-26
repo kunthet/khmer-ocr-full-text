@@ -19,11 +19,697 @@ project_root = Path(__file__).parent.parent.parent.parent
 sys.path.append(str(project_root / 'src' / 'modules'))
 
 try:
-    from khtext.subword_cluster import khmer_syllables_advanced, restore_whitespace_tags
+    from khtext.khnormal_fast import khnormal
+    KHNORMAL_AVAILABLE = True
+except ImportError:
+    print("Warning: Khmer normalization not available")
+    KHNORMAL_AVAILABLE = False
+
+try:
+    from khtext.subword_cluster import split_syllables_advanced, restore_whitespace_tags
     SYLLABLE_SEGMENTATION_AVAILABLE = True
 except ImportError:
     print("Warning: Khmer syllable segmentation not available")
     SYLLABLE_SEGMENTATION_AVAILABLE = False
+
+# Khmer Character Unicode Constants
+COENG_SIGN = '\u17D2'  # ្
+REPETITION_SIGN = '\u17D7'  # ៗ
+BANTOC_SIGN = '\u17CB'  # ់
+
+# Dependent vowels that cannot be placed next to each other
+DEPENDENT_VOWELS_NO_DUPLICATE = ['ា', 'ិ', 'ី', 'ឹ', 'ឺ', 'ុ', 'ូ', 'ួ', 'ើ', 'ៀ', 'េ', 'ែ', 'ៃ', 'ោ', 'ៅ']
+
+class KhmerTextGenerator:
+    """
+    A comprehensive Khmer text generator that follows proper linguistic rules.
+    
+    Rules implemented:
+    1. Must start with consonant, independent vowel, or repetition sign (ៗ)
+    2. Coeng sign (្) must be between consonants
+    3. Never placing 2 or more Coeng signs next to each other
+    4. Never placing specific dependent vowels next to each other
+    5. Never end with Coeng sign (្)
+    6. Bantoc sign (់) must be after consonants and usually at end of syllable
+    """
+    
+    def __init__(self, character_frequencies: Optional[Dict[str, float]] = None):
+        """
+        Initialize the Khmer text generator.
+        
+        Args:
+            character_frequencies: Optional character frequency dictionary
+        """
+        self.character_frequencies = character_frequencies or self.load_character_frequencies()
+        self.khmer_chars = self.get_full_khmer_characters()
+        
+        # Character sets for easy access
+        self.consonants = self.khmer_chars['consonants']
+        self.vowels = self.khmer_chars['vowels']
+        self.independents = self.khmer_chars['independents']
+        self.signs = self.khmer_chars['signs']
+        self.digits = self.khmer_chars['digits']
+    
+    @staticmethod
+    def is_khmer_consonant(char: str) -> bool:
+        """Check if character is a Khmer consonant."""
+        return '\u1780' <= char <= '\u17A2'
+    
+    @staticmethod
+    def is_khmer_vowel(char: str) -> bool:
+        """Check if character is a Khmer dependent vowel."""
+        return '\u17B6' <= char <= '\u17C5'
+    
+    @staticmethod
+    def is_khmer_independent_vowel(char: str) -> bool:
+        """Check if character is a Khmer independent vowel."""
+        return '\u17A5' <= char <= '\u17B5'
+    
+    @staticmethod
+    def is_khmer_sign(char: str) -> bool:
+        """Check if character is a Khmer sign/diacritic."""
+        return '\u17C6' <= char <= '\u17D3'
+    
+    @staticmethod
+    def is_valid_khmer_start_character(char: str) -> bool:
+        """
+        Check if character can legally start a Khmer text.
+        Rule 1: Must start with consonant, independent vowel, or repetition sign.
+        """
+        return (KhmerTextGenerator.is_khmer_consonant(char) or 
+                KhmerTextGenerator.is_khmer_independent_vowel(char) or
+                char == REPETITION_SIGN)
+    
+    def _split_into_syllables(self, text: str) -> List[str]:
+        """
+        Split Khmer text into syllable units for validation.
+        
+        This is a simplified syllable boundary detection that identifies
+        syllable breaks based on consonant patterns and independent vowels.
+        
+        Args:
+            text: Input Khmer text
+            
+        Returns:
+            List of syllable strings
+        """
+        if not text:
+            return []
+        return split_syllables_advanced(text)
+        
+    
+    def validate_khmer_text_structure(self, text: str) -> Tuple[bool, str]:
+        """
+        Validate Khmer text against linguistic rules.
+        
+        Rules:
+        1. Must start with consonant, independent vowel, or repetition sign
+        2. Coeng sign (្) must be between consonants
+        3. Never place 2+ Coeng signs next to each other
+        4. Never place 2+ specific dependent vowels next to each other
+        5. Never end with Coeng sign (្)
+        6. Bantoc sign (់) must be after consonants
+        7. In same syllable: at most 2 Coeng signs and not adjacent
+        
+        Args:
+            text: Khmer text to validate
+            
+        Returns:
+            Tuple of (is_valid, error_message)
+        """
+        if not text:
+            return False, "Empty text"
+        
+        # Rule 1: Must start with consonant, independent vowel, or repetition sign
+        if not self.is_valid_khmer_start_character(text[0]):
+            return False, f"Text must start with consonant, independent vowel, or repetition sign, not '{text[0]}'"
+        
+        # Rule 5: Never end with Coeng sign
+        if text.endswith(COENG_SIGN):
+            return False, "Text cannot end with Coeng sign (្)"
+        
+        # Rule 7: Syllable-level Coeng constraints
+        syllables = self._split_into_syllables(text)
+        for syll_idx, syllable in enumerate(syllables):
+            coeng_count = syllable.count(COENG_SIGN)
+            if coeng_count > 2:
+                return False, f"Syllable '{syllable}' has {coeng_count} Coeng signs (max 2 allowed per syllable)"
+            
+            # Check for adjacent Coeng signs within syllable
+            if COENG_SIGN + COENG_SIGN in syllable:
+                return False, f"Syllable '{syllable}' has adjacent Coeng signs (not allowed)"
+        
+        # Check each character position
+        for i, char in enumerate(text):
+            # Rule 2: Coeng sign must be between consonants
+            if char == COENG_SIGN:
+                # Check if previous character is consonant
+                if i == 0 or not self.is_khmer_consonant(text[i-1]):
+                    return False, f"Coeng sign at position {i} must follow a consonant"
+                
+                # Check if next character is consonant
+                if i == len(text) - 1 or not self.is_khmer_consonant(text[i+1]):
+                    return False, f"Coeng sign at position {i} must be followed by a consonant"
+            
+            # Rule 3: Never place 2+ Coeng signs next to each other
+            if i > 0 and char == COENG_SIGN and text[i-1] == COENG_SIGN:
+                return False, f"Multiple Coeng signs found at positions {i-1}-{i}"
+            
+            # Rule 4: Never place specific dependent vowels next to each other
+            if (i > 0 and char in DEPENDENT_VOWELS_NO_DUPLICATE and 
+                text[i-1] in DEPENDENT_VOWELS_NO_DUPLICATE):
+                return False, f"Dependent vowels '{text[i-1]}' and '{char}' cannot be adjacent at positions {i-1}-{i}"
+            
+            # Rule 6: Bantoc sign (់) must be after consonants and usually at end of syllable
+            if char == BANTOC_SIGN:
+                if i == 0 or not self.is_khmer_consonant(text[i-1]):
+                    return False, f"Bantoc sign (់) at position {i} must follow a consonant"
+        
+        return True, "Valid"
+    
+    def generate_syllable(self) -> str:
+        """
+        Generate a linguistically valid Khmer syllable following all rules.
+        
+        Returns:
+            Generated valid Khmer syllable
+        """
+        syllable = ""
+        
+        # Rule 1: Start with consonant, independent vowel, or repetition sign
+        start_options = self.consonants + self.independents + [REPETITION_SIGN]
+        if start_options:
+            start_weights = [self.character_frequencies.get(c, 0.01) for c in start_options]
+            total_weight = sum(start_weights)
+            if total_weight > 0:
+                start_weights = [w / total_weight for w in start_weights]
+                start_char = np.random.choice(start_options, p=start_weights)
+                syllable += start_char
+            else:
+                return "ក"  # Fallback
+        else:
+            return "ក"  # Fallback
+        
+        # If repetition sign, that's the complete syllable
+        if syllable == REPETITION_SIGN:
+            return normalize_khmer_text(syllable)
+        
+        # If started with consonant, may add Coeng+consonant cluster (increased probability)
+        # Rule 7: At most 2 Coeng signs per syllable, not adjacent
+        if (self.is_khmer_consonant(syllable[0]) and random.random() < 0.25):  # 25% chance for Coeng cluster
+            consonant_weights = [self.character_frequencies.get(c, 0.01) for c in self.consonants]
+            total_weight = sum(consonant_weights)
+            if total_weight > 0:
+                consonant_weights = [w / total_weight for w in consonant_weights]
+                next_consonant = np.random.choice(self.consonants, p=consonant_weights)
+                syllable += COENG_SIGN + next_consonant
+                
+                # Possibly add a second Coeng cluster (lower probability) with non-adjacent constraint
+                if (random.random() < 0.15 and  # 15% chance for second Coeng
+                    self.is_khmer_consonant(syllable[-1]) and  # Last char is consonant
+                    not syllable.endswith(COENG_SIGN)):  # Not ending with Coeng already
+                    
+                    # Add vowel or other character to separate Coeng signs
+                    if self.vowels and random.random() < 0.7:
+                        vowel_weights = [self.character_frequencies.get(v, 0.01) for v in self.vowels]
+                        vowel_total = sum(vowel_weights)
+                        if vowel_total > 0:
+                            vowel_weights = [w / vowel_total for w in vowel_weights]
+                            vowel = np.random.choice(self.vowels, p=vowel_weights)
+                            syllable += vowel
+                    
+                    # Add second Coeng+consonant cluster
+                    second_consonant = np.random.choice(self.consonants, p=consonant_weights)
+                    syllable += COENG_SIGN + second_consonant
+        
+        # If started with consonant (and no Coeng added), may add dependent vowel
+        if (self.is_khmer_consonant(syllable[0]) and COENG_SIGN not in syllable and 
+            self.vowels and random.random() < 0.6):
+            vowel_weights = [self.character_frequencies.get(v, 0.01) for v in self.vowels]
+            total_weight = sum(vowel_weights)
+            if total_weight > 0:
+                vowel_weights = [w / total_weight for w in vowel_weights]
+                vowel = np.random.choice(self.vowels, p=vowel_weights)
+                syllable += vowel
+        
+        # If Coeng cluster exists, may add vowel after the second consonant
+        elif COENG_SIGN in syllable and self.vowels and random.random() < 0.4:
+            vowel_weights = [self.character_frequencies.get(v, 0.01) for v in self.vowels]
+            total_weight = sum(vowel_weights)
+            if total_weight > 0:
+                vowel_weights = [w / total_weight for w in vowel_weights]
+                vowel = np.random.choice(self.vowels, p=vowel_weights)
+                syllable += vowel
+        
+        # Add Bantoc sign (់) after consonants - higher probability at end
+        if (self.is_khmer_consonant(syllable[-1]) and random.random() < 0.15):
+            syllable += BANTOC_SIGN
+        
+        # Add other signs/diacritics (but not Coeng, repetition, or Bantoc)
+        filtered_signs = [s for s in self.signs if s not in [COENG_SIGN, REPETITION_SIGN, BANTOC_SIGN]]
+        if filtered_signs and random.random() < 0.15:
+            sign_weights = [self.character_frequencies.get(s, 0.01) for s in filtered_signs]
+            total_weight = sum(sign_weights)
+            if total_weight > 0:
+                sign_weights = [w / total_weight for w in sign_weights]
+                sign = np.random.choice(filtered_signs, p=sign_weights)
+                syllable += sign
+        
+        # Validate and return
+        is_valid, error = self.validate_khmer_text_structure(syllable)
+        if is_valid:
+            return normalize_khmer_text(syllable)
+        else:
+            # Fallback to simple consonant
+            return "ក"
+    
+    def generate_word(self, min_syllables: int = 1, max_syllables: int = 4) -> str:
+        """
+        Generate a linguistically valid Khmer word following all rules.
+        
+        Args:
+            min_syllables: Minimum number of syllables
+            max_syllables: Maximum number of syllables
+            
+        Returns:
+            Generated valid Khmer word
+        """
+        num_syllables = random.randint(min_syllables, max_syllables)
+        word = ""
+        
+        for i in range(num_syllables):
+            if i == 0:
+                # First syllable
+                syllable = self.generate_syllable()
+                word += syllable
+            else:
+                # Subsequent syllables - enhanced Coeng generation strategy
+                use_coeng = False
+                
+                # Higher probability of Coeng if:
+                # 1. Previous character is consonant (75% chance)
+                # 2. Word is getting longer (increases Coeng usage)
+                # 3. We want to maintain realistic Coeng frequency
+                if word and self.is_khmer_consonant(word[-1]):
+                    base_coeng_prob = 0.75  # Increased from 60% to 75%
+                    length_bonus = min(0.15, len(word) * 0.03)  # Bonus for longer words
+                    # Additional bonus for multi-syllable words
+                    syllable_bonus = 0.1 if len(word) > 2 else 0
+                    coeng_probability = base_coeng_prob + length_bonus + syllable_bonus
+                    use_coeng = random.random() < coeng_probability
+                
+                if use_coeng and word and self.is_khmer_consonant(word[-1]):
+                    # Rule 2: Coeng must be between consonants
+                    # Generate consonant to follow Coeng
+                    consonant_weights = [self.character_frequencies.get(c, 0.01) for c in self.consonants]
+                    total_weight = sum(consonant_weights)
+                    if total_weight > 0:
+                        consonant_weights = [w / total_weight for w in consonant_weights]
+                        next_consonant = np.random.choice(self.consonants, p=consonant_weights)
+                        
+                        # Rule 3: Ensure no double Coeng
+                        if not word.endswith(COENG_SIGN):
+                            word += COENG_SIGN + next_consonant
+                            
+                            # After Coeng+consonant, may add vowel or signs
+                            if random.random() < 0.4:  # 40% chance to add vowel
+                                vowel_weights = [self.character_frequencies.get(v, 0.01) for v in self.vowels]
+                                vowel_total = sum(vowel_weights)
+                                if vowel_total > 0:
+                                    vowel_weights = [w / vowel_total for w in vowel_weights]
+                                    vowel = np.random.choice(self.vowels, p=vowel_weights)
+                                    word += vowel
+                        else:
+                            # Skip Coeng if previous char is already Coeng, just add consonant
+                            word += next_consonant
+                    else:
+                        # Fallback - add normal syllable
+                        syllable = self.generate_syllable()
+                        word += syllable
+                else:
+                    # Add normal syllable (no Coeng)
+                    syllable = self.generate_syllable()
+                    word += syllable
+        
+        # Rule 5: Ensure doesn't end with Coeng
+        if word.endswith(COENG_SIGN):
+            # Add a consonant after the trailing Coeng
+            word += random.choice(self.consonants)
+        
+        # Final validation
+        is_valid, error = self.validate_khmer_text_structure(word)
+        if not is_valid:
+            # Fallback to simple syllable
+            return self.generate_syllable()
+        
+        return normalize_khmer_text(word)
+    
+    def generate_phrase(self, min_words: int = 1, max_words: int = 5) -> str:
+        """
+        Generate a Khmer phrase with multiple words.
+        
+        Args:
+            min_words: Minimum number of words
+            max_words: Maximum number of words
+            
+        Returns:
+            Generated Khmer phrase
+        """
+        num_words = random.randint(min_words, max_words)
+        words = []
+        
+        for _ in range(num_words):
+            # Generate longer words to increase Coeng opportunities
+            word = self.generate_word(min_syllables=1, max_syllables=5)  # Extended max syllables
+            words.append(word)
+        
+        # Join words with space (though Khmer traditionally doesn't use spaces)
+        phrase = " ".join(words) if random.random() < 0.3 else "".join(words)
+        return normalize_khmer_text(phrase)
+    
+    def generate_character_sequence(self, length: int, 
+                                  character_set: Optional[List[str]] = None) -> str:
+        """
+        Generate a valid character sequence following Khmer linguistic rules.
+        
+        Args:
+            length: Length of sequence to generate
+            character_set: List of characters to choose from
+            
+        Returns:
+            Generated valid character sequence
+        """
+        if character_set is None:
+            character_set = list(self.character_frequencies.keys())
+        
+        # Filter to valid starting characters for first position
+        valid_start_chars = [char for char in character_set 
+                            if self.is_valid_khmer_start_character(char)]
+        
+        if not valid_start_chars:
+            # Fallback to consonants + independents + repetition sign
+            valid_start_chars = self.consonants + self.independents + [REPETITION_SIGN]
+        
+        sequence = ""
+        
+        for i in range(length):
+            if i == 0:
+                # Rule 1: Start with consonant or independent vowel
+                start_weights = [self.character_frequencies.get(char, 0.01) for char in valid_start_chars]
+                total_weight = sum(start_weights)
+                if total_weight > 0:
+                    start_weights = [w / total_weight for w in start_weights]
+                    char = np.random.choice(valid_start_chars, p=start_weights)
+                    sequence += char
+                else:
+                    sequence += random.choice(valid_start_chars)
+            else:
+                # Subsequent characters - apply all rules
+                available_chars = []
+                
+                # Filter characters based on context
+                for char in character_set:
+                    # Rule 2: Coeng must be between consonants
+                    if char == COENG_SIGN:
+                        if (i > 0 and self.is_khmer_consonant(sequence[-1]) and 
+                            i < length - 1):  # Not at end (Rule 5)
+                            
+                            # Rule 7: Check syllable-level Coeng constraints
+                            current_syllables = self._split_into_syllables(sequence)
+                            if current_syllables:
+                                current_syllable = current_syllables[-1]  # Last syllable being built
+                                coeng_count_in_syllable = current_syllable.count(COENG_SIGN)
+                                
+                                # Don't add Coeng if syllable already has 2 or would create adjacent Coeng
+                                if (coeng_count_in_syllable >= 2 or 
+                                    current_syllable.endswith(COENG_SIGN)):
+                                    continue
+                            
+                            # Significantly increase Coeng probability to maintain frequency
+                            available_chars.extend([char] * 8)  # 8x weight instead of 3x
+                        continue
+                    
+                    # Rule 3: No double Coeng
+                    if i > 0 and sequence[-1] == COENG_SIGN and char == COENG_SIGN:
+                        continue
+                    
+                    # Rule 4: No duplicate specific dependent vowels
+                    if (i > 0 and char in DEPENDENT_VOWELS_NO_DUPLICATE and 
+                        sequence[-1] in DEPENDENT_VOWELS_NO_DUPLICATE):
+                        continue
+                    
+                    # Rule 5: If this is last position, don't use Coeng
+                    if i == length - 1 and char == COENG_SIGN:
+                        continue
+                    
+                    # Rule 2: If previous is Coeng, this must be consonant
+                    if i > 0 and sequence[-1] == COENG_SIGN and not self.is_khmer_consonant(char):
+                        continue
+                    
+                    # Rule 6: Bantoc (់) must be after consonants
+                    if char == BANTOC_SIGN:
+                        if i > 0 and self.is_khmer_consonant(sequence[-1]):
+                            available_chars.append(char)
+                        continue
+                    
+                    available_chars.append(char)
+                
+                if not available_chars:
+                    # Fallback - use consonants (safe choice)
+                    available_chars = [char for char in self.consonants 
+                                     if char in character_set]
+                    if not available_chars:
+                        available_chars = self.consonants
+                
+                # Choose next character
+                char_weights = [self.character_frequencies.get(char, 0.01) for char in available_chars]
+                total_weight = sum(char_weights)
+                if total_weight > 0:
+                    char_weights = [w / total_weight for w in char_weights]
+                    char = np.random.choice(available_chars, p=char_weights)
+                else:
+                    char = random.choice(available_chars)
+                
+                sequence += char
+        
+        # Final validation and correction
+        is_valid, error = self.validate_khmer_text_structure(sequence)
+        if not is_valid:
+            # Try to fix common issues
+            if sequence.endswith(COENG_SIGN):
+                # Rule 5: Add consonant after trailing Coeng
+                sequence += random.choice(self.consonants)
+            elif not self.is_valid_khmer_start_character(sequence[0]):
+                # Rule 1: Fix invalid start
+                sequence = random.choice(self.consonants) + sequence[1:]
+        
+        return normalize_khmer_text(sequence)
+    
+    def generate_content_by_type(self, content_type: str = "auto", 
+                               length: int = None,
+                               allowed_characters: Optional[List[str]] = None) -> str:
+        """
+        Generate content based on specified type.
+        
+        Args:
+            content_type: Type of content ('auto', 'digits', 'characters', 'syllables', 'words', 'phrases', 'mixed')
+            length: Target length
+            allowed_characters: Allowed characters for curriculum learning
+            
+        Returns:
+            Generated content
+        """
+        if length is None:
+            length = random.randint(1, 15)
+        
+        if content_type == "digits":
+            return self.generate_digit_sequence(1, min(8, length))
+        elif content_type == "characters":
+            character_set = allowed_characters if allowed_characters else list(self.character_frequencies.keys())
+            return self.generate_character_sequence(length, character_set)
+        elif content_type == "syllables":
+            num_syllables = max(1, length // 3)
+            syllables = []
+            for i in range(num_syllables):
+                syllable = self.generate_syllable()
+                syllables.append(syllable)
+                
+                # Add inter-syllable Coeng connections occasionally for authenticity
+                if (i < num_syllables - 1 and random.random() < 0.15 and 
+                    self.is_khmer_consonant(syllable[-1])):
+                    # Generate a Coeng+consonant to connect syllables
+                    consonant_weights = [self.character_frequencies.get(c, 0.01) for c in self.consonants]
+                    total_weight = sum(consonant_weights)
+                    if total_weight > 0:
+                        consonant_weights = [w / total_weight for w in consonant_weights]
+                        next_consonant = np.random.choice(self.consonants, p=consonant_weights)
+                        syllables.append(COENG_SIGN + next_consonant)
+            
+            return "".join(syllables)
+        elif content_type == "words":
+            if length <= 5:
+                return self.generate_word(1, 2)
+            else:
+                return self.generate_phrase(1, max(1, length // 10))
+        elif content_type == "phrases":
+            return self.generate_phrase(1, max(1, length // 8))
+        elif content_type == "mixed":
+            content_types = ["characters", "syllables", "words"]
+            weights = [0.4, 0.4, 0.2]
+            chosen_type = np.random.choice(content_types, p=weights)
+            return self.generate_content_by_type(chosen_type, length, allowed_characters)
+        else:  # auto
+            # Intelligent content type selection based on length
+            if length <= 3:
+                return self.generate_content_by_type("characters", length, allowed_characters)
+            elif length <= 8:
+                return self.generate_content_by_type("syllables", length, allowed_characters)
+            elif length <= 15:
+                return self.generate_content_by_type("words", length, allowed_characters)
+            else:
+                return self.generate_content_by_type("phrases", length, allowed_characters)
+    
+    @staticmethod
+    def get_full_khmer_characters() -> Dict[str, List[str]]:
+        """
+        Get the complete Khmer character set organized by categories.
+        
+        Returns:
+            Dictionary with character categories
+        """
+        try:
+            # Import from khchar if available
+            import sys
+            sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'khtext'))
+            from khchar import CONSONANTS, VOWELS, INDEPENDENTS, SIGN_CHARS, DIGITS, LEK_ATTAK
+            
+            return {
+                'consonants': [chr(c) for c in CONSONANTS],
+                'vowels': [chr(c) for c in VOWELS],
+                'independents': [chr(c) for c in INDEPENDENTS],
+                'signs': [chr(c) for c in SIGN_CHARS],
+                'digits': [chr(c) for c in DIGITS],
+                'lek_attak': [chr(c) for c in LEK_ATTAK]
+            }
+        except ImportError:
+            # Fallback to basic character set
+            return {
+                'consonants': [chr(i) for i in range(0x1780, 0x17A3)],  # 33 consonants
+                'vowels': [chr(i) for i in range(0x17B6, 0x17C6)],      # 16 vowels
+                'independents': [chr(i) for i in range(0x17A5, 0x17B6)], # 14 independent vowels
+                'signs': [chr(i) for i in range(0x17C6, 0x17D4)],       # 13 signs
+                'digits': [chr(i) for i in range(0x17E0, 0x17EA)],      # 10 digits
+                'lek_attak': [chr(i) for i in range(0x17F0, 0x17FA)]    # 10 lek attak
+            }
+    
+    @staticmethod
+    def load_character_frequencies(analysis_file: str = "khmer_text_analysis_results.json") -> Dict[str, float]:
+        """
+        Load character frequencies from analysis results.
+        
+        Args:
+            analysis_file: Path to analysis results JSON file
+            
+        Returns:
+            Dictionary mapping characters to normalized frequencies
+        """
+        frequencies = {}
+        
+        try:
+            if os.path.exists(analysis_file):
+                with open(analysis_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                
+                if 'top_frequencies' in data:
+                    total_freq = sum(freq for char_code, freq in data['top_frequencies'])
+                    for char_code, freq in data['top_frequencies']:
+                        char = chr(char_code)
+                        frequencies[char] = freq / total_freq
+        except Exception as e:
+            print(f"Warning: Could not load character frequencies: {e}")
+        
+        # Fallback to uniform distribution if no frequencies available
+        if not frequencies:
+            khmer_chars = KhmerTextGenerator.get_full_khmer_characters()
+            all_chars = []
+            for category in khmer_chars.values():
+                all_chars.extend(category)
+            
+            uniform_freq = 1.0 / len(all_chars)
+            frequencies = {char: uniform_freq for char in all_chars}
+        
+        return frequencies
+    
+    @staticmethod
+    def generate_digit_sequence(min_length: int = 1, max_length: int = 8) -> str:
+        """
+        Generate a random sequence of Khmer digits.
+        
+        Args:
+            min_length: Minimum sequence length
+            max_length: Maximum sequence length
+            
+        Returns:
+            Generated digit sequence
+        """
+        digits = ["០", "១", "២", "៣", "៤", "៥", "៦", "៧", "៨", "៩"]
+        length = random.randint(min_length, max_length)
+        sequence = ''.join(random.choices(digits, k=length))
+        return normalize_khmer_text(sequence)
+
+# Global instance for backward compatibility
+_khmer_generator = None
+
+def get_khmer_generator() -> KhmerTextGenerator:
+    """Get the global Khmer text generator instance."""
+    global _khmer_generator
+    if _khmer_generator is None:
+        _khmer_generator = KhmerTextGenerator()
+    return _khmer_generator
+
+# Legacy function compatibility - now using the class
+def is_khmer_consonant(char: str) -> bool:
+    """Check if character is a Khmer consonant."""
+    return KhmerTextGenerator.is_khmer_consonant(char)
+
+def is_khmer_vowel(char: str) -> bool:
+    """Check if character is a Khmer dependent vowel."""
+    return KhmerTextGenerator.is_khmer_vowel(char)
+
+def is_khmer_independent_vowel(char: str) -> bool:
+    """Check if character is a Khmer independent vowel."""
+    return KhmerTextGenerator.is_khmer_independent_vowel(char)
+
+def is_khmer_sign(char: str) -> bool:
+    """Check if character is a Khmer sign/diacritic."""
+    return KhmerTextGenerator.is_khmer_sign(char)
+
+def is_valid_khmer_start_character(char: str) -> bool:
+    """Check if character can legally start a Khmer text."""
+    return KhmerTextGenerator.is_valid_khmer_start_character(char)
+
+def validate_khmer_text_structure(text: str) -> Tuple[bool, str]:
+    """Validate Khmer text against linguistic rules."""
+    return get_khmer_generator().validate_khmer_text_structure(text)
+
+def generate_valid_khmer_syllable() -> str:
+    """Generate a linguistically valid Khmer syllable following all rules."""
+    return get_khmer_generator().generate_syllable()
+
+def generate_valid_khmer_word(min_syllables: int = 1, max_syllables: int = 4) -> str:
+    """Generate a linguistically valid Khmer word following all rules."""
+    return get_khmer_generator().generate_word(min_syllables, max_syllables)
+
+def generate_valid_khmer_character_sequence(length: int, 
+                                          character_frequencies: Optional[Dict[str, float]] = None,
+                                          character_set: Optional[List[str]] = None) -> str:
+    """Generate a valid character sequence following Khmer linguistic rules."""
+    generator = get_khmer_generator()
+    if character_frequencies:
+        # Create temporary generator with custom frequencies
+        temp_generator = KhmerTextGenerator(character_frequencies)
+        return temp_generator.generate_character_sequence(length, character_set)
+    return generator.generate_character_sequence(length, character_set)
 
 def normalize_khmer_text(text: str) -> str:
     """
@@ -35,8 +721,9 @@ def normalize_khmer_text(text: str) -> str:
     Returns:
         Normalized text
     """
+    if KHNORMAL_AVAILABLE:
+        return khnormal(text)
     return unicodedata.normalize('NFC', text)
-
 
 def load_khmer_fonts(fonts_dir: str) -> Dict[str, str]:
     """
@@ -201,7 +888,7 @@ def generate_weighted_character_sequence(length: int,
                                        character_frequencies: Optional[Dict[str, float]] = None,
                                        character_set: Optional[List[str]] = None) -> str:
     """
-    Generate a character sequence using frequency weighting.
+    Generate a character sequence using frequency weighting with proper Khmer linguistic rules.
     
     Args:
         length: Length of sequence to generate
@@ -209,79 +896,26 @@ def generate_weighted_character_sequence(length: int,
         character_set: List of characters to choose from
         
     Returns:
-        Generated character sequence
+        Generated character sequence following Khmer rules
     """
-    if character_frequencies is None:
-        character_frequencies = load_character_frequencies()
-    
-    if character_set is None:
-        character_set = list(character_frequencies.keys())
-    
-    # Filter frequencies for available character set
-    available_chars = [char for char in character_set if char in character_frequencies]
-    if not available_chars:
-        # Fallback to uniform sampling
-        available_chars = character_set
-        weights = [1.0] * len(available_chars)
-    else:
-        weights = [character_frequencies[char] for char in available_chars]
-    
-    # Normalize weights
-    total_weight = sum(weights)
-    weights = [w / total_weight for w in weights]
-    
-    # Generate sequence
-    sequence = ''.join(np.random.choice(available_chars, size=length, p=weights))
-    return normalize_khmer_text(sequence)
+    # Use the rule-compliant generator
+    return generate_valid_khmer_character_sequence(length, character_frequencies, character_set)
 
 
 def generate_khmer_syllable() -> str:
     """
-    Generate a realistic Khmer syllable structure.
+    Generate a linguistically valid Khmer syllable following all rules.
     
     Returns:
         Generated Khmer syllable
     """
-    khmer_chars = get_full_khmer_characters()
-    frequencies = load_character_frequencies()
-    
-    # Basic syllable structure: [Consonant] + [Vowel/Signs]
-    consonants = khmer_chars['consonants']
-    vowels = khmer_chars['vowels']
-    signs = khmer_chars['signs']
-    
-    syllable = ""
-    
-    # Start with consonant (high probability)
-    if consonants and random.random() < 0.9:
-        consonant_weights = [frequencies.get(c, 0.01) for c in consonants]
-        total_weight = sum(consonant_weights)
-        if total_weight > 0:
-            consonant_weights = [w / total_weight for w in consonant_weights]
-            syllable += np.random.choice(consonants, p=consonant_weights)
-    
-    # Add vowel (moderate probability)
-    if vowels and random.random() < 0.7:
-        vowel_weights = [frequencies.get(v, 0.01) for v in vowels]
-        total_weight = sum(vowel_weights)
-        if total_weight > 0:
-            vowel_weights = [w / total_weight for w in vowel_weights]
-            syllable += np.random.choice(vowels, p=vowel_weights)
-    
-    # Add signs/diacritics (lower probability)
-    if signs and random.random() < 0.3:
-        sign_weights = [frequencies.get(s, 0.01) for s in signs]
-        total_weight = sum(sign_weights)
-        if total_weight > 0:
-            sign_weights = [w / total_weight for w in sign_weights]
-            syllable += np.random.choice(signs, p=sign_weights)
-    
-    return normalize_khmer_text(syllable) if syllable else generate_weighted_character_sequence(1)
+    # Use the rule-compliant generator
+    return generate_valid_khmer_syllable()
 
 
 def generate_khmer_word(min_syllables: int = 1, max_syllables: int = 4) -> str:
     """
-    Generate a realistic Khmer word with multiple syllables.
+    Generate a linguistically valid Khmer word following all rules.
     
     Args:
         min_syllables: Minimum number of syllables
@@ -290,18 +924,8 @@ def generate_khmer_word(min_syllables: int = 1, max_syllables: int = 4) -> str:
     Returns:
         Generated Khmer word
     """
-    num_syllables = random.randint(min_syllables, max_syllables)
-    word = ""
-    
-    for i in range(num_syllables):
-        syllable = generate_khmer_syllable()
-        word += syllable
-        
-        # Add COENG (stacking character) between syllables sometimes
-        if i < num_syllables - 1 and random.random() < 0.3:
-            word += chr(0x17D2)  # KHMER SIGN COENG
-    
-    return normalize_khmer_text(word)
+    # Use the rule-compliant generator
+    return generate_valid_khmer_word(min_syllables, max_syllables)
 
 
 def generate_khmer_phrase(min_words: int = 1, max_words: int = 5) -> str:
@@ -620,7 +1244,7 @@ def _extract_syllable_aware_segment(line: str, target_length: int, min_length: i
     """Extract segment using syllable-aware boundary detection."""
     try:
         # Segment the entire line into syllables
-        syllables = khmer_syllables_advanced(line)
+        syllables = split_syllables_advanced(line)
         
         if not syllables:
             return _extract_simple_segment(line, target_length, min_length, max_length)
@@ -744,18 +1368,24 @@ def generate_corpus_based_text(corpus_lines: Optional[List[str]] = None,
         target_length = random.randint(1, 20)
     
     # For certain content types, prefer corpus extraction
-    if content_type in ["auto", "words", "phrases", "mixed"] and corpus_lines:
+    if content_type in ["auto", "characters", "syllables", "words", "phrases", "mixed"] and corpus_lines:
         # Try corpus extraction first
-        corpus_text = segment_corpus_text(
-            corpus_lines,
-            target_length=target_length,
-            min_length=max(1, target_length - 5),
-            max_length=target_length + 10,
-            allowed_characters=allowed_characters
-        )
-        
-        if corpus_text and len(corpus_text) >= 1:
-            return corpus_text
+        retries = 50
+        for i in range(retries):
+            corpus_text = segment_corpus_text(
+                corpus_lines,
+                target_length=target_length,
+                min_length=max(1, target_length - 5),
+                max_length=target_length + 10,
+                allowed_characters=allowed_characters
+            )
+            
+            if corpus_text and len(corpus_text) >= 1:
+                return corpus_text
+            else:
+                print(f"⚠️ Got empty text. retrying ({i}/{retries})...")
+                continue
+        print(f"⚠️ Failed to generate valid corpus text after {retries} retries. Using synthetic generation.")
     
     # Fallback to synthetic generation
     if content_type == "digits":

@@ -89,7 +89,7 @@ def restore_whitespace_tags(text):
 
 
 
-def khmer_syllables(text):
+def split_syllables(text):
     """
     Segment Khmer text into syllables using proper Khmer script patterns.
     Space tokens are replaced with special tags to preserve them during join operations.
@@ -160,7 +160,7 @@ def khmer_syllables(text):
     
     return result
 
-def khmer_syllables_advanced(text):
+def split_syllables_advanced(text):
     """
     More advanced Khmer syllable segmentation using a different approach.
     This tries to better handle complex Khmer syllable structures.
@@ -245,9 +245,9 @@ def segment_paragraph_to_subwords(text, method="advanced", separator="|"):
         'អ្ន|ក|គ្រួ|ប|ង្រៀ|ន|ភា|សា|ខ្មែ|រ'
     """
     if method == "advanced":
-        syllables = khmer_syllables_advanced(text)
+        syllables = split_syllables_advanced(text)
     else:
-        syllables = khmer_syllables(text)
+        syllables = split_syllables(text)
     
     return separator.join(syllables)
 
@@ -267,7 +267,7 @@ def main():
     print()
     
     print("Method 2 - Advanced syllable segmentation:")
-    syllables2 = khmer_syllables_advanced(sample)
+    syllables2 = split_syllables_advanced(sample)
     print("Syllables:", syllables2)
     print("result:", syllables2)
     print()
